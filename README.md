@@ -1,8 +1,15 @@
-# React + Vite
+### Features (**To be implemented**):
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+* **User Registration and Login:** Users can register as donors or blood banks/hospitals.
+* **Donor Profile:** Donors can view and update their profile information, including blood type, medical history, and availability for donation.
+* **Blood Bank/Hospital Profile:** Blood banks/hospitals can create profiles with information about their location, blood needs, and contact details.
+* **Donation Requests:** Blood banks/hospitals can post requests for specific blood types.
+* **Search Functionality:** Donors can search for donation opportunities based on their location and blood type.
+* **Appointment Booking:** Donors can book appointments to donate blood at a convenient blood bank/hospital.
+* **Educational Resources:** Information about blood donation eligibility, benefits, and the donation process.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Technologies Used:
+
+* React
+* [Add any other libraries used in the project]
