@@ -1,18 +1,24 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import DistrictUpazila from "../components/DistrictUpazila";
 
 const Register = () => {
+const [district, setDistrict] = useState()
+const [upazila, setUpazila] = useState()
+const [error, setError] = useState();
+  
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
   const onSubmit = async (data) => {
+    const Name = data.name;
+    const Email = data.email;
     const image = data.image[0];
+    console.log(image);
     const key = import.meta.env.VITE_IMAGEBB_API_KEY;
-    console.log(key);
     const formData = new FormData();
     formData.append("image", image);
     try {
@@ -22,11 +28,15 @@ const Register = () => {
         `,
         formData
       );
-      console.log(data.data.display_url);
+      const imageUrl = data.data.display_url
+      const userData = {Name, Email, district, upazila, imageUrl }
+      console.log(userData);
     } catch (error) {
       console.log(error);
     }
+
   };
+  console.log(errors);
   return (
     <div className="flex justify-center">
       <div className="rounded-md w-2/4 bg-cover bg-no-repeat bg-gray-100">
@@ -35,32 +45,32 @@ const Register = () => {
         </div>
         <form className="p-8 space-y-3 " onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label htmlFor="Name">Your Name</label>
+            <label>Your Name</label>
             <input
               className="outline-none rounded-sm mb-2 py-2 px-3 w-full"
               placeholder="Your Name"
               name="Name"
-              {...register("Name", { required: true })}
-              aria-invalid={errors.firstName ? "true" : "false"}
+              {...register("name", { required: true })}
+              aria-invalid={errors.name ? "true" : "false"}
             />
-            {errors.firstName?.type === "required" && (
-              <p className="-mt-2" role="alert">
-                First name is required
+            {errors.name?.type === "required" && (
+              <p className="-mt-2 text-red-700" role="alert">
+            Name is required
               </p>
             )}
           </div>
 
           <div>
-            <label htmlFor="">Email</label>
-            <input
+            <label>Email</label>
+            <input type="email"
               className="outline-none rounded-sm mb-2 py-2 px-3 w-full"
               placeholder="Enter your email"
-              {...register("mail", { required: "Email Address is required" })}
-              aria-invalid={errors.mail ? "true" : "false"}
+              {...register("email", { required: "Email Address is required" })}
+              aria-invalid={errors.email ? "true" : "false"}
             />
-            {errors.mail && (
-              <p className="-mt-2" role="alert">
-                {errors.mail.message}
+            {errors.email && (
+              <p className="-mt-2 text-red-700" role="alert">
+                {errors.email.message}
               </p>
             )}
           </div>
@@ -69,12 +79,17 @@ const Register = () => {
             <input
               type="file"
               accept="image/*"
-              {...register("image", { required: true })}
+              {...register("image", { required: "Image is required" })}
             />
+            {errors.image && (
+              <p className="mt-1" role="alert">
+                {errors.image.message}
+              </p>
+            )}
           </div>
 
-          <div>
-            <select className="select select-info w-full max-w-xs focus:outline-none">
+          <div className="w-full">
+            <select className="select select-info w-full focus:outline-none text-red-500 text-xl">
               <option disabled selected>
                 Select Blood Group
               </option>
@@ -88,9 +103,9 @@ const Register = () => {
               <option>O-</option>
             </select>
           </div>
-          <DistrictUpazila/>
+          <DistrictUpazila setDistrict={setDistrict} setUpazila={setUpazila} district={district}/>
 
-          <button type="submit">Submit</button>
+          <button className="btn btn-primary w-full" type="submit">Submit</button>
         </form>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
           <path
