@@ -6,6 +6,7 @@ import useAuth from "../CustomHooks/useAuth";
 import Swal from "sweetalert2";
 import { ImSpinner9 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
+import { updateProfile } from "firebase/auth";
 
 const Register = () => {
   const [spinner, setSpinner] = useState(false)
@@ -61,6 +62,10 @@ const navigate = useNavigate()
           showConfirmButton: false,
           timer: 1500
         });
+        updateProfile(res.user,{
+          displayName: Name,
+          photoURL: imageUrl
+        })
         navigate("/login")
         
       })

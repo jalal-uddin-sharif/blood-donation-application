@@ -22,6 +22,7 @@ const Login = () => {
             showConfirmButton: false,
             timer: 1500
           });
+          setUser(res.user)
           navigate("/")
     })
     .catch(err =>{
