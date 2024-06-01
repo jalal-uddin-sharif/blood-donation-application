@@ -1,9 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../CustomHooks/useAuth";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const {loginUser, setUser, user} = useAuth()
+    const navigate = useNavigate()
   const {
     register,
     formState: { errors },
@@ -13,6 +16,13 @@ const Login = () => {
     loginUser(data.email, data.password)
     .then(res => {
         console.log(res.user);
+        Swal.fire({
+            icon: "success",
+            title: "Successfully Logged",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          navigate("/")
     })
     .catch(err =>{
         console.log(err);
