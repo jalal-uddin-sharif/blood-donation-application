@@ -5,6 +5,7 @@ import DistrictUpazila from "../components/DistrictUpazila";
 import useAuth from "../CustomHooks/useAuth";
 import Swal from "sweetalert2";
 import { ImSpinner9 } from "react-icons/im";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [spinner, setSpinner] = useState(false)
@@ -15,6 +16,7 @@ const [error, setError] = useState();
 const [groupError, setGroupError] = useState()
 const [stop, setStop] = useState(false)
 const {createUser} = useAuth()
+const navigate = useNavigate()
 
   
   const {
@@ -28,9 +30,11 @@ const {createUser} = useAuth()
     setSpinner(true)
 
     if(bloodGroup === undefined){
+      setSpinner(false)
       return setGroupError("Blood group must be required")
     }
     if(district === undefined || upazila === undefined){
+      setSpinner(false)
     return  setError("Address must be required")
     }
     const Name = data.name;
@@ -57,6 +61,7 @@ const {createUser} = useAuth()
           showConfirmButton: false,
           timer: 1500
         });
+        navigate("/login")
         
       })
       .catch(err => 
@@ -206,8 +211,8 @@ const {createUser} = useAuth()
             !spinner ? "Submit" : "Please wait"
           }<span className={!spinner ? "hidden" : "animate-spin"}><ImSpinner9 /></span> </button>
         </form>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-          <path
+        <svg className="rounded-b-md" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+          <path 
             fill="#0099ff"
             fill-opacity="1"
             d="M0,0L48,26.7C96,53,192,107,288,112C384,117,480,75,576,80C672,85,768,139,864,138.7C960,139,1056,85,1152,85.3C1248,85,1344,139,1392,165.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
