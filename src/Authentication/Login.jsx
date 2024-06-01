@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../CustomHooks/useAuth";
 import Swal from "sweetalert2";
@@ -29,6 +29,12 @@ const Login = () => {
         console.log(err);
     })
   }
+
+  useEffect(()=>{
+    if(user){
+      return navigate("/")
+    }
+  },[])
   return (
     <div className="flex justify-center my-10">
     <div className="bg-gray-100 w-2/5 rounded-md">

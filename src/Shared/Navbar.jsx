@@ -1,7 +1,9 @@
-import React from "react";
+
 import { Link } from "react-router-dom";
+import useAuth from "../CustomHooks/useAuth";
 
 const Navbar = () => {
+  const {logOut} = useAuth()
   const navlist = (
     <>
       <li>
@@ -12,6 +14,9 @@ const Navbar = () => {
       </li>
       <li>
         <Link to={'/login'}>Login</Link>
+      </li>
+      <li>
+        <button onClick={logOut}>Logout</button>
       </li>
     </>
   );

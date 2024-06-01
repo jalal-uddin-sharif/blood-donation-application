@@ -1,11 +1,11 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import DistrictUpazila from "../components/DistrictUpazila";
 import useAuth from "../CustomHooks/useAuth";
 import Swal from "sweetalert2";
 import { ImSpinner9 } from "react-icons/im";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
 
 const Register = () => {
@@ -16,7 +16,7 @@ const [bloodGroup, setBloodGroup] = useState()
 const [error, setError] = useState();
 const [groupError, setGroupError] = useState()
 const [stop, setStop] = useState(false)
-const {createUser} = useAuth()
+const {createUser, user, logOut} = useAuth()
 const navigate = useNavigate()
 
   
@@ -56,6 +56,7 @@ const navigate = useNavigate()
 
       createUser(Email, password)
       .then(res => {
+        logOut()
         Swal.fire({
           icon: "success",
           title: "Your account has been created",
@@ -66,7 +67,7 @@ const navigate = useNavigate()
           displayName: Name,
           photoURL: imageUrl
         })
-        navigate("/login")
+
         
       })
       .catch(err => 
@@ -95,6 +96,12 @@ const navigate = useNavigate()
     setGroupError(undefined)
     setBloodGroup(e.target.value)
   }
+
+  useEffect(()=>{
+    if(user){
+      return navigate("/login")
+    }
+  },[user])
  
   return (
     <div className="flex justify-center my-10">
@@ -147,6 +154,7 @@ const navigate = useNavigate()
           </div>
 
           <div className="w-full">
+            <label htmlFor="">Blood Group</label>
             <select onChange={handleBloodGroup} required className="select select-info w-full focus:outline-none bg-gray-50 text-red-500 text-xl">
               <option disabled selected>
                 Select Blood Group

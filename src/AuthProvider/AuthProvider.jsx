@@ -1,6 +1,8 @@
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import React, { createContext, useEffect, useState } from 'react';
 import { app } from '../Authentication/firebase.config';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 export const AuthContext = createContext(null)
 const AuthProvider = ({children}) => {
@@ -18,6 +20,9 @@ const AuthProvider = ({children}) => {
         setLoading(false)
         return signInWithEmailAndPassword(auth, email, password)
     }
+    const logOut = () =>{
+        signOut(auth)
+    }
 
 
 
@@ -34,7 +39,7 @@ const AuthProvider = ({children}) => {
    const  authInfo = {
     createUser,
     setUser, user,
-    loginUser
+    loginUser, logOut
 
     }
     return (
