@@ -18,6 +18,10 @@ const Navbar = () => {
       <li>
         <button onClick={logOut}>Logout</button>
       </li>
+      <li>
+        <Link to={'/dashboard'}>Dashboard</Link>
+      </li>
+
     </>
   );
   return (

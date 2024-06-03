@@ -27,6 +27,12 @@ const Login = () => {
     })
     .catch(err =>{
         console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Email or Password invalid",
+          showConfirmButton: false,
+          timer: 1500
+        });
     })
   }
 

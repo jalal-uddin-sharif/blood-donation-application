@@ -3,6 +3,10 @@ import Roots from "../Roots/Roots";
 import Register from "../Authentication/Register";
 import DistrictUpazila from "../components/DistrictUpazila";
 import Login from "../Authentication/Login";
+import DashboardLayout from "../Layout/DashboardLayout";
+import MyDonationRequests from "../Dashboard/Pages/MyDonationRequests";
+import WelcomeSection from "../components/WelcomeSection";
+import CreateDonation from "../Dashboard/Pages/CreateDonation";
 
 export const router = createBrowserRouter([
   {
@@ -24,4 +28,22 @@ export const router = createBrowserRouter([
       
     ],
   },
+  {
+    path: "/dashboard",
+    element: <DashboardLayout/>,
+    children: [
+      {
+      index: true,
+        element: <WelcomeSection/>
+      },
+      {
+        path: "my-donation-requests",
+        element: <MyDonationRequests/>
+      },
+      {
+        path: "create-donation-requests",
+        element: <CreateDonation/>
+      },
+    ]
+  }
 ]);

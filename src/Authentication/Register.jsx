@@ -5,7 +5,7 @@ import DistrictUpazila from "../components/DistrictUpazila";
 import useAuth from "../CustomHooks/useAuth";
 import Swal from "sweetalert2";
 import { ImSpinner9 } from "react-icons/im";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
 
 const Register = () => {
