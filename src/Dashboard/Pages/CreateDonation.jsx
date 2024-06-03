@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../CustomHooks/useAuth";
+import DistrictUpazila from "../../components/DistrictUpazila";
 
 const CreateDonation = () => {
-    const {user} = useAuth()
+  const { user } = useAuth();
+  const [district, setDistrict] = useState();
+  const [upazila, setUpazila] = useState();
+  const [bloodGroup, setBloodGroup] = useState();
+  const [error, setError] = useState();
+  const [groupError, setGroupError] = useState();
   const {
     register,
     handleSubmit,
@@ -12,20 +18,33 @@ const CreateDonation = () => {
   } = useForm();
 
   const onSubmit = (data) => console.log(data);
+
+  const handleBloodGroup = (e) => {
+    setGroupError(undefined);
+    setBloodGroup(e.target.value);
+  };
   return (
-    <div className="bg-gray-100 rounded-md">
-        <div className="text-center text-green-500 font-bold py-10 text-3xl">
-            <h1>Create new donation request</h1>
-        </div>
-      <form className=" px-8 w-3/5" onSubmit={handleSubmit(onSubmit)}>
+    <div className="bg-gray-100 rounded-md flex flex-col justify-center items-center">
+      <div className="text-center text-green-500 font-bold py-10 text-3xl">
+        <h1>Create new donation request</h1>
+      </div>
+      <form className=" w-4/5" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-8">
-            <h1 className="text-lg font-medium ">Requester name: <span className="text-pink-600"> {user.displayName} </span></h1>
-            <h1 className="text-lg font-medium ">Requester email: <span className="text-pink-600"> {user.email} </span></h1>
+          <h1 className="text-lg font-medium ">
+            Requester name:{" "}
+            <span className="text-pink-600"> {user?.displayName} </span>
+          </h1>
+          <h1 className="text-lg font-medium ">
+            Requester email:{" "}
+            <span className="text-pink-600"> {user?.email} </span>
+          </h1>
         </div>
-        <div>
+
+        <div className="flex gap-5">
+          <div className="w-full">
             <label>Your Name</label>
             <input
-              className="outline-none rounded-md mb-2 py-2 px-3 w-full"
+              className="outline-none rounded-md mb-2 p-3 w-full"
               placeholder="Your Name"
               name="Name"
               {...register("name", { required: true })}
@@ -33,13 +52,79 @@ const CreateDonation = () => {
             />
             {errors.name?.type === "required" && (
               <p className="-mt-2 text-red-700" role="alert">
-            Name is required
+                Name is required
               </p>
             )}
           </div>
+          <div className="w-full">
+            <label htmlFor="">Blood Group</label>
+            <select
+              onChange={handleBloodGroup}
+              required
+              className="select select-info select- w-full focus:outline-none bg-gray-50 text-red-500 text-xl"
+            >
+              <option disabled selected>
+                Select Blood Group
+              </option>
+              <option value={"A+"}>A+</option>
+              <option value={"A-"}>A-</option>
+              <option value={"B+"}>B+</option>
+              <option value={"B-"}>B-</option>
+              <option value={"AB+"}>AB+</option>
+              <option value={"AB-"}>AB-</option>
+              <option value={"O+"}>O+</option>
+              <option value={"O-"}>O-</option>
+            </select>
+            {groupError && (
+              <p className="text-red-700" role="alert">
+                {groupError}
+              </p>
+            )}
+          </div>
+        </div>
 
+        <div>
+          <DistrictUpazila
+            setDistrict={setDistrict}
+            setUpazila={setUpazila}
+            district={district}
+          />
+        </div>
 
-        <button type="submit">Submit</button>
+        <div>
+          <label>Hospital Name</label>
+          <input
+            className="outline-none rounded-md mb-2 p-3 w-full"
+            placeholder="Hospital Name"
+            name="Name"
+            {...register("hospital", { required: true })}
+            aria-invalid={errors.name ? "true" : "false"}
+          />
+          {errors.name?.type === "required" && (
+            <p className="-mt-2 text-red-700" role="alert">
+              Name is required
+            </p>
+          )}
+        </div>
+        <div>
+          <label>Full Address</label>
+          <input
+            className="outline-none rounded-md mb-2 p-3 w-full"
+            placeholder="ex- chittagong,rangunia, padua-rajarhat"
+            name="Name"
+            {...register("hospital", { required: true })}
+            aria-invalid={errors.name ? "true" : "false"}
+          />
+          {errors.name?.type === "required" && (
+            <p className="-mt-2 text-red-700" role="alert">
+              Name is required
+            </p>
+          )}
+        </div>
+
+        <button className="btn my-4  btn-success btn-wide" type="submit">
+          Submit
+        </button>
       </form>
     </div>
   );

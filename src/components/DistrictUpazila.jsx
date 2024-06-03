@@ -778,7 +778,7 @@ const DistrictUpazila = ({ setDistrict, setUpazila, district }) => {
 
   return (
     <div className=" flex gap-4 w-full">
-      <div className="w-full">
+      <div className="w-full flex flex-col">
     <label htmlFor="">District</label>
         <select
           required
@@ -797,7 +797,7 @@ const DistrictUpazila = ({ setDistrict, setUpazila, district }) => {
       </div>
 
       {/* Upazila */}
-      <div className="w-full">
+      <div className="w-full flex flex-col">
         {district && (
             <>
     <label htmlFor="">Upazila</label>
