@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { ImSpinner9 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
+import useAxiosSecure from "../CustomHooks/useAxiosSecure";
 
 const Register = () => {
   const [spinner, setSpinner] = useState(false)
@@ -18,6 +19,7 @@ const [groupError, setGroupError] = useState()
 const [stop, setStop] = useState(false)
 const {createUser, user, logOut} = useAuth()
 const navigate = useNavigate()
+const myAxios = useAxiosSecure()
 
   
   const {
@@ -55,7 +57,7 @@ const navigate = useNavigate()
       const imageUrl = data.data.display_url
 
       createUser(Email, password)
-      .then(res => {
+      .then( async res => {
         logOut()
         Swal.fire({
           icon: "success",
@@ -68,6 +70,11 @@ const navigate = useNavigate()
           photoURL: imageUrl
         })
 
+        const status = "active"
+        const userData = {Name, Email, district, upazila, imageUrl , bloodGroup, status }
+  
+        const result =await myAxios.post(`/all-users`, userData)
+        console.log(result.data);
         
       })
       .catch(err => 
@@ -79,9 +86,6 @@ const navigate = useNavigate()
         setSpinner(false)
       )
 
-
-      const userData = {Name, Email, district, upazila, imageUrl }
-      console.log(userData);
     } catch (error) {
       console.log(error);
     }

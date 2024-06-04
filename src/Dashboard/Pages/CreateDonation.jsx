@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../CustomHooks/useAuth";
 import DistrictUpazila from "../../components/DistrictUpazila";
 import DatePickerkeep from "../../components/DatePickerkeep";
+import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const CreateDonation = () => {
   const { user } = useAuth();
@@ -11,41 +13,80 @@ const CreateDonation = () => {
   const [bloodGroup, setBloodGroup] = useState();
   const [error, setError] = useState();
   const [groupError, setGroupError] = useState();
+
+  const myAxios = useAxiosSecure()
+
+  const [donationDate, setDonationDate] = useState(
+    new Date().toLocaleDateString()
+  );
+  const [donationTime, setDonationTime] = useState(new Date());
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors }, reset
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    if(groupError === undefined){
-     return setGroupError("Blood group required") }
-   
-    if(district === undefined || upazila === undefined){
-      setGroupError("")
-    return  setError("Address must be required")
-    }
-    setError("")
 
+
+  console.log(groupError);
+  const onSubmit =async (data) => {
+    console.log(data);
+    if (groupError === undefined) {
+      return setGroupError("Blood group required");
+    }
+
+
+    if (district === undefined || upazila === undefined) {
+      return setError("Address must be required");
+    }
+  
+setError("")
     const requesterName = user?.displayName;
     const requesterEmail = user?.email;
     const recipientName = data.recipientName;
     const hospital = data.hospital;
     const message = data.message;
     const address = data.address;
-    const donatinStatus = "pending"
-    
+    const donatinStatus = "pending";
+    const donationDates = donationDate
+    const donationTimes = donationTime.toLocaleTimeString()
 
-    const donationReqData = {requesterName, requesterEmail, recipientName, hospital, message, address, district, upazila, bloodGroup, donatinStatus}
+    const donationReqData = {
+      requesterName,
+      requesterEmail,
+      recipientName,
+      hospital,
+      message,
+      address,
+      district,
+      upazila,
+      bloodGroup,
+      donatinStatus,
+      donationDates,
+      donationTimes
+    };
     console.log(donationReqData);
-  }
+
+    const donationData = await myAxios.post("/new-donation-request", donationReqData)
+    console.log(donationData.data);
+    if(donationData.data.insertedId){
+   
+      Swal.fire({
+        icon: "success",
+        title: "Your request submitted",
+        showConfirmButton: false,
+        timer: 1500
+      });   
+      reset()
+    }
+  };
 
   const handleBloodGroup = (e) => {
     setBloodGroup(e.target.value);
+    setGroupError("")
   };
-  console.log(groupError);
+
   return (
     <div className="bg-gray-100 rounded-md flex flex-col justify-center items-center">
       <div className="text-center text-green-500 font-bold py-10 text-3xl">
@@ -98,7 +139,7 @@ const CreateDonation = () => {
               <option value={"O+"}>O+</option>
               <option value={"O-"}>O-</option>
             </select>
-            {groupError && (
+            { (
               <p className="text-red-700" role="alert">
                 {groupError}
               </p>
@@ -112,13 +153,11 @@ const CreateDonation = () => {
             setUpazila={setUpazila}
             district={district}
           />
-           {
-            error && (
-              <p className=" text-red-700" role="alert">
-                {error}
-              </p>
-            )
-          }
+          { (
+            <p className=" text-red-700" role="alert">
+              {error}
+            </p>
+          )}
         </div>
 
         <div>
@@ -152,10 +191,15 @@ const CreateDonation = () => {
           )}
         </div>
 
-          <div>
-            <DatePickerkeep/>
-          </div>
-          <div>
+        <div>
+          <DatePickerkeep
+          donationDate={donationDate}
+          donationTime={donationTime}
+            setDonationDate={setDonationDate}
+            setDonationTime={setDonationTime}
+          />
+        </div>
+        <div>
           <label>Message</label>
           <textarea
             className="outline-none rounded-md mb-2 p-3 w-full textarea textarea-bordered"
