@@ -18,12 +18,34 @@ const CreateDonation = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
+    if(groupError === undefined){
+     return setGroupError("Blood group required") }
+   
+    if(district === undefined || upazila === undefined){
+      setGroupError("")
+    return  setError("Address must be required")
+    }
+    setError("")
+
+    const requesterName = user?.displayName;
+    const requesterEmail = user?.email;
+    const recipientName = data.recipientName;
+    const hospital = data.hospital;
+    const message = data.message;
+    const address = data.address;
+    const donatinStatus = "pending"
+    
+
+    const donationReqData = {requesterName, requesterEmail, recipientName, hospital, message, address, district, upazila, bloodGroup, donatinStatus}
+    console.log(donationReqData);
+  }
 
   const handleBloodGroup = (e) => {
-    setGroupError(undefined);
     setBloodGroup(e.target.value);
   };
+  console.log(groupError);
   return (
     <div className="bg-gray-100 rounded-md flex flex-col justify-center items-center">
       <div className="text-center text-green-500 font-bold py-10 text-3xl">
@@ -47,11 +69,11 @@ const CreateDonation = () => {
             <input
               className="outline-none rounded-md mb-2 p-3 w-full"
               placeholder="Recipient Name"
-              name="RecipientName"
-              {...register("recipient-name", { required: true })}
-              aria-invalid={errors.name ? "true" : "false"}
+              name="recipientName"
+              {...register("recipientName", { required: true })}
+              aria-invalid={errors.recipientName ? "true" : "false"}
             />
-            {errors.name?.type === "required" && (
+            {errors.recipientName?.type === "required" && (
               <p className="-mt-2 text-red-700" role="alert">
                 Recipient Name is required
               </p>
@@ -90,6 +112,13 @@ const CreateDonation = () => {
             setUpazila={setUpazila}
             district={district}
           />
+           {
+            error && (
+              <p className=" text-red-700" role="alert">
+                {error}
+              </p>
+            )
+          }
         </div>
 
         <div>
