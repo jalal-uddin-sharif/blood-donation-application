@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../CustomHooks/useAuth";
 import DistrictUpazila from "../../components/DistrictUpazila";
+import DatePickerkeep from "../../components/DatePickerkeep";
 
 const CreateDonation = () => {
   const { user } = useAuth();
@@ -42,17 +43,17 @@ const CreateDonation = () => {
 
         <div className="flex gap-5">
           <div className="w-full">
-            <label>Your Name</label>
+            <label>Recipient Name</label>
             <input
               className="outline-none rounded-md mb-2 p-3 w-full"
-              placeholder="Your Name"
-              name="Name"
-              {...register("name", { required: true })}
+              placeholder="Recipient Name"
+              name="RecipientName"
+              {...register("recipient-name", { required: true })}
               aria-invalid={errors.name ? "true" : "false"}
             />
             {errors.name?.type === "required" && (
               <p className="-mt-2 text-red-700" role="alert">
-                Name is required
+                Recipient Name is required
               </p>
             )}
           </div>
@@ -96,11 +97,11 @@ const CreateDonation = () => {
           <input
             className="outline-none rounded-md mb-2 p-3 w-full"
             placeholder="Hospital Name"
-            name="Name"
+            name="HospitalName"
             {...register("hospital", { required: true })}
-            aria-invalid={errors.name ? "true" : "false"}
+            aria-invalid={errors.hospital ? "true" : "false"}
           />
-          {errors.name?.type === "required" && (
+          {errors.hospital?.type === "required" && (
             <p className="-mt-2 text-red-700" role="alert">
               Name is required
             </p>
@@ -111,11 +112,30 @@ const CreateDonation = () => {
           <input
             className="outline-none rounded-md mb-2 p-3 w-full"
             placeholder="ex- chittagong,rangunia, padua-rajarhat"
-            name="Name"
-            {...register("hospital", { required: true })}
-            aria-invalid={errors.name ? "true" : "false"}
+            name="address"
+            {...register("address", { required: true })}
+            aria-invalid={errors.address ? "true" : "false"}
           />
-          {errors.name?.type === "required" && (
+          {errors.address?.type === "required" && (
+            <p className="-mt-2 text-red-700" role="alert">
+              Name is required
+            </p>
+          )}
+        </div>
+
+          <div>
+            <DatePickerkeep/>
+          </div>
+          <div>
+          <label>Message</label>
+          <textarea
+            className="outline-none rounded-md mb-2 p-3 w-full textarea textarea-bordered"
+            placeholder="ex- chittagong,rangunia, padua-rajarhat"
+            name="message"
+            {...register("message", { required: true })}
+            aria-invalid={errors.message ? "true" : "false"}
+          />
+          {errors.message?.type === "required" && (
             <p className="-mt-2 text-red-700" role="alert">
               Name is required
             </p>
@@ -123,7 +143,7 @@ const CreateDonation = () => {
         </div>
 
         <button className="btn my-4  btn-success btn-wide" type="submit">
-          Submit
+          Submit request
         </button>
       </form>
     </div>
