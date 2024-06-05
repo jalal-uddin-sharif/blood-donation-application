@@ -2,6 +2,9 @@ import React from "react";
 import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { CiUnlock } from "react-icons/ci";
+import { TbLockShare } from "react-icons/tb";
+
 
 const AllUser = () => {
   const myAxios = useAxiosSecure();
@@ -121,21 +124,21 @@ const AllUser = () => {
                                             Admin
                                         </button>
                                     </td> */}
-                  <td className="px-6 py-4 whitespace-nowrap">{item.status}</td>
+                  <td className={`px-6 py-4 whitespace-nowrap font-bold ${item.status === "block" ? "text-red-700" : "text-green-500"}`}>{item.status}</td>
                   <td className="px-6 whitespace-nowrap">
                     {
                         item.status !== "active" ?
                         <button
                      onClick={()=> handleAction(`${item.Email}`, "active")}
-                      className="py-2 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
+                     className=" font-medium text-green-500 hover:text-green-500 duration-150 hover:bg-gray-50 btn btn-circle"
                     >
-                      Active
+                      <CiUnlock size={25} />
                     </button> :
                      <button
                      onClick={()=> handleAction(`${item.Email}`, "block")}
-                      className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
+                      className="font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 btn btn-circle"
                     >
-                      Block
+                     <TbLockShare size={25} />
                     </button>
                     }
                     
