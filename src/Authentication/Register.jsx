@@ -40,6 +40,7 @@ const myAxios = useAxiosSecure()
       setSpinner(false)
     return  setError("Address must be required")
     }
+    const Role = "Doner"
     const Name = data.name;
     const Email = data.email;
     const image = data.image[0];
@@ -71,7 +72,7 @@ const myAxios = useAxiosSecure()
         })
 
         const status = "active"
-        const userData = {Name, Email, district, upazila, imageUrl , bloodGroup, status }
+        const userData = {Name, Email, district, upazila, imageUrl , bloodGroup, status, Role }
   
         const result =await myAxios.post(`/all-users`, userData)
         console.log(result.data);
