@@ -1,5 +1,5 @@
 import { MdBloodtype, MdSpaceDashboard } from "react-icons/md";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
   return (
@@ -51,9 +51,25 @@ const Sidebar = () => {
               <span className="text-lg font-medium">Create Donation</span>
             </div>
           </NavLink>
+
+          {/* admin only */}
+          <NavLink
+            to={"/dashboard/all-users"}
+            className={({ isActive }) =>
+              `hover:bg-gray-600 px-2 py-1 rounded-md hover:text-white ${
+                isActive ? "bg-black text-white rounded-md px-2 py-1" : ""
+              } `
+            }
+          >
+            <div className="flex">
+              <MdBloodtype size={23} className="mr-3 mt-0.5" />{" "}
+              <span className="text-lg font-medium">All user</span>
+            </div>
+          </NavLink>
         </nav>
       </div>
     </div>
+    
   );
 };
 
