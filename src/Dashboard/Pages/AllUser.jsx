@@ -16,11 +16,17 @@ const AllUser = () => {
   };
 
   const handleRole =async (email, role )=>{
-    console.log(email, role);
     const data = await myAxios.patch(`/update-user-role?email=${email}` , {role: role})
-    console.log(data.data.success);
     if(data.data.success){
         toast.success(`Role has been changed to ${role}`)
+    }
+    refetch()
+  }
+
+  const handleAction = async (email, status) =>{
+    const data = await myAxios.patch(`/update-user-status?email=${email}`, {status: status})
+    if(data.data.success){
+        toast.success(`User status updated to ${status}`)
     }
     refetch()
   }
@@ -119,14 +125,14 @@ const AllUser = () => {
                   <td className="px-6 whitespace-nowrap">
                     {
                         item.status !== "active" ?
-                        <a
-                      href="javascript:void()"
+                        <button
+                     onClick={()=> handleAction(`${item.Email}`, "active")}
                       className="py-2 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
                     >
                       Active
-                    </a> :
+                    </button> :
                      <button
-                      href="javascript:void()"
+                     onClick={()=> handleAction(`${item.Email}`, "block")}
                       className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
                     >
                       Block

@@ -40,7 +40,7 @@ const myAxios = useAxiosSecure()
       setSpinner(false)
     return  setError("Address must be required")
     }
-    const Role = "Doner"
+    const Role = "Donor"
     const Name = data.name;
     const Email = data.email;
     const image = data.image[0];
