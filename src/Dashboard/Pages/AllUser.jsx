@@ -1,11 +1,9 @@
 import React from "react";
 import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import useAuth from "../../CustomHooks/useAuth";
 import toast from "react-hot-toast";
 
 const AllUser = () => {
-    const {user} = useAuth()
   const myAxios = useAxiosSecure();
   const { data, refetch } = useQuery({
     queryFn: () => getAllUser(),
@@ -17,11 +15,12 @@ const AllUser = () => {
     return data;
   };
 
-  const handleRole =async e =>{
-    const data = await myAxios.patch(`/update-user-role?email=${user?.email}` , {role: e})
+  const handleRole =async (email, role )=>{
+    console.log(email, role);
+    const data = await myAxios.patch(`/update-user-role?email=${email}` , {role: role})
     console.log(data.data.success);
     if(data.data.success){
-        toast.success(`Role has been changed to ${e}`)
+        toast.success(`Role has been changed to ${role}`)
     }
     refetch()
   }
@@ -79,7 +78,7 @@ const AllUser = () => {
 
                   <td className="px-6 whitespace-nowrap">
                     {item.Role === "Donor" || item.Role === "Admin" ? (
-                      <button onClick={()=>handleRole("Volunteer")} className="py-2 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg">
+                      <button onClick={()=>handleRole(`${item.Email}`, "Volunteer")} className="py-2 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg">
                         Volunteer
                       </button>
                     ) : (
@@ -87,7 +86,7 @@ const AllUser = () => {
                     )}
                     {item.Role === "Donor" || item.Role === "Volunteer" ? (
                       <button
-                      onClick={()=>handleRole("Admin")}
+                      onClick={()=>handleRole(`${item.Email}`, "Admin")}
                         className="py-2 leading-none px-3 font-medium text-blue-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
                       >
                         Admin
@@ -98,7 +97,7 @@ const AllUser = () => {
 
                     {item.Role === "Admin" || item.Role === "Volunteer" ? (
                       <button
-                      onClick={()=>handleRole("Donor")}
+                      onClick={()=>handleRole(`${item.Email}`, "Donor")}
                         className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
                       >
                         Donor
