@@ -25,7 +25,7 @@ const WelcomeSection = () => {
           Hello, <span className="text-green-700">{user?.displayName}</span>
         </h1>
       </div>
-
+    
       {/* recent donation */}
       <DonationRequest data={data}/>
     </div>
