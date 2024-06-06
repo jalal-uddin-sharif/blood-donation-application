@@ -11,7 +11,7 @@ const MyDonationRequests = () => {
     const myAxios = useAxiosSecure()
     const {data}=useQuery({
         queryFn: ()=> getDonationData(),
-        queryKey: ['donationrequest']
+        queryKey: ['donationrequest', user?.email]
     })
 
     const getDonationData = async() =>{

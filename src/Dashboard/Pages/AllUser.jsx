@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 import { CiUnlock } from "react-icons/ci";
 import { TbLockShare } from "react-icons/tb";
 
-
 const AllUser = () => {
   const myAxios = useAxiosSecure();
   const { data, refetch } = useQuery({
@@ -18,21 +17,26 @@ const AllUser = () => {
     return data;
   };
 
-  const handleRole =async (email, role )=>{
-    const data = await myAxios.patch(`/update-user-role?email=${email}` , {role: role})
-    if(data.data.success){
-        toast.success(`Role has been changed to ${role}`)
+  const handleRole = async (email, role) => {
+    console.log(email, role);
+    const data = await myAxios.patch(`/update-user-role?email=${email}`, {
+      role: role,
+    });
+    if (data.data.success) {
+      toast.success(`Role has been changed to ${role}`);
     }
-    refetch()
-  }
+    refetch();
+  };
 
-  const handleAction = async (email, status) =>{
-    const data = await myAxios.patch(`/update-user-status?email=${email}`, {status: status})
-    if(data.data.success){
-        toast.success(`User status updated to ${status}`)
+  const handleAction = async (email, status) => {
+    const data = await myAxios.patch(`/update-user-status?email=${email}`, {
+      status: status,
+    });
+    if (data.data.success) {
+      toast.success(`User status updated to ${status}`);
     }
-    refetch()
-  }
+    refetch();
+  };
   return (
     <div>
       <div className="max-w-screen-xl mx-auto px-4 md:px-8">
@@ -66,7 +70,7 @@ const AllUser = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">{item.Role}</td>
 
-                  <td className="px-6 whitespace-nowrap">
+                  {/* <td className="px-6 whitespace-nowrap">
                     {item.Role === "Donor" || item.Role === "Admin" ? (
                       <button onClick={()=>handleRole(`${item.Email}`, "Volunteer")} 
                       className="py-2 leading-none px-3 font-medium text-orange-600 hover:text-orange-600 duration-150 hover:bg-gray-50 rounded-lg">
@@ -96,41 +100,81 @@ const AllUser = () => {
                     ) : (
                       ""
                     )}
+                  </td> */}
+
+                  <td class="mx-auto max-w-xs space-y-5">
+                    <select
+                      defaultValue={"OKK"}
+                      onChange={(e) =>
+                        handleRole(`${item?.Email}`, e.target.value)
+                      }
+                      class="block w-full p-2 focus:outline-none  rounded-md border-transparent bg-gray-100 focus:border-primary-300 focus:bg-white focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50"
+                    >
+                      <option   value={item.Role}>{item.Role}</option>
+                      {item.Role === "Donor" || item.Role === "Admin" ? (
+                        <option
+                          value={"Volunteer"}
+                          className="py-2 leading-none px-3 font-medium text-orange-600 hover:text-orange-600 duration-150 hover:bg-gray-50 rounded-lg"
+                        >
+                          Volunteer
+                        </option>
+                      ) : (
+                        ""
+                      )}
+                      {item.Role === "Donor" || item.Role === "Volunteer" ? (
+                        <option
+                          value={"Admin"}
+                          className="py-2 leading-none px-3 font-medium text-blue-600 hover:text-blue-600 duration-150 hover:bg-gray-50 rounded-lg"
+                        >
+                          Admin
+                        </option>
+                      ) : (
+                        ""
+                      )}
+
+                      {item.Role === "Admin" || item.Role === "Volunteer" ? (
+                        <option
+                          value={"Donor"}
+                          className="py-2 leading-none px-3 font-medium text-green-400 hover:text-green-400 duration-150 hover:bg-gray-50 rounded-lg"
+                        >
+                          Donor
+                        </option>
+                      ) : (
+                        ""
+                      )}
+                    </select>
                   </td>
 
-                  {/* <td className="px-6 whitespace-nowrap">
-                                        <a href="javascript:void()" className="py-2 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg">
-                                            Volunteer
-                                        </a>
-                                        <button href="javascript:void()" className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg">
-                                            Admin
-                                        </button>
-                                    </td> */}
-                  <td className={`px-6 py-4 whitespace-nowrap font-bold ${item.status === "block" ? "text-red-700" : "text-green-500"}`}>{item.status}</td>
+                  <td
+                    className={`px-6 py-4 whitespace-nowrap font-bold ${
+                      item.status === "block"
+                        ? "text-red-700"
+                        : "text-green-500"
+                    }`}
+                  >
+                    {item.status}
+                  </td>
                   <td className="px-6 whitespace-nowrap">
-                    {
-                        item.status !== "active" ?
-                        <button
-                     onClick={()=> handleAction(`${item.Email}`, "active")}
-                     className=" font-medium text-green-500 hover:text-green-500 duration-150 hover:bg-gray-50 btn btn-circle"
-                    >
-                      <CiUnlock size={25} />
-                    </button> :
-                     <button
-                     onClick={()=> handleAction(`${item.Email}`, "block")}
-                      className="font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 btn btn-circle"
-                    >
-                     <TbLockShare size={25} />
-                    </button>
-                    }
-                    
-                   
+                    {item.status !== "active" ? (
+                      <button
+                        onClick={() => handleAction(`${item.Email}`, "active")}
+                        className=" font-medium text-green-500 hover:text-green-500 duration-150 hover:bg-gray-50 btn btn-circle"
+                      >
+                        <CiUnlock size={25} />
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleAction(`${item.Email}`, "block")}
+                        className="font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 btn btn-circle"
+                      >
+                        <TbLockShare size={25} />
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-       
         </div>
       </div>
     </div>
