@@ -69,39 +69,6 @@ const AllUser = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">{item.Role}</td>
-
-                  {/* <td className="px-6 whitespace-nowrap">
-                    {item.Role === "Donor" || item.Role === "Admin" ? (
-                      <button onClick={()=>handleRole(`${item.Email}`, "Volunteer")} 
-                      className="py-2 leading-none px-3 font-medium text-orange-600 hover:text-orange-600 duration-150 hover:bg-gray-50 rounded-lg">
-                        Volunteer
-                      </button>
-                    ) : (
-                      ""
-                    )}
-                    {item.Role === "Donor" || item.Role === "Volunteer" ? (
-                      <button
-                      onClick={()=>handleRole(`${item.Email}`, "Admin")}
-                        className="py-2 leading-none px-3 font-medium text-blue-600 hover:text-blue-600 duration-150 hover:bg-gray-50 rounded-lg"
-                      >
-                        Admin
-                      </button>
-                    ) : (
-                      ""
-                    )}
-
-                    {item.Role === "Admin" || item.Role === "Volunteer" ? (
-                      <button
-                      onClick={()=>handleRole(`${item.Email}`, "Donor")}
-                        className="py-2 leading-none px-3 font-medium text-green-400 hover:text-green-400 duration-150 hover:bg-gray-50 rounded-lg"
-                      >
-                        Donor
-                      </button>
-                    ) : (
-                      ""
-                    )}
-                  </td> */}
-
                   <td class="mx-auto max-w-xs space-y-5">
                     <select
                       defaultValue={"OKK"}

@@ -6,13 +6,29 @@ const Profile = () => {
   const User = useDbUser();
   console.log(User);
   const [update, setUpdate] = useState(false);
-  const [bloodGroup, setBloodGroup] = useState(User?.bloodGroup);
-  const [district, setDistrict] = useState();
-  const [upazila, setUpazila] = useState();
+  const [bloodGroup, setBloodGroup] = useState(User?.bloodGroup)
+  const [district, setDistrict] = useState(User?.district) 
+  const [upazila, setUpazila] = useState(User?.upazila)
+  const [newName, setNewName] = useState(User?.Name)
+  const [newEmail, setNewEmail]= useState(User?.Email)
+
+  console.log(district);
 
   const handleBloodGroup = (e) => {
     setBloodGroup(e.target.value);
   };
+
+
+  const handleUpdateProfile = () =>{
+    const Name = newName;
+    const Email = newEmail;
+    const Role = User?.Role
+    const status = User?.status
+
+    const updatedUserData = {Name, Email, district, upazila, bloodGroup, Role, status }
+    console.log(updatedUserData);
+
+  }
   return (
     <div>
       <div className="min-h-[calc(100vh-200px)] flex justify-center items-center">
@@ -53,14 +69,14 @@ const Profile = () => {
               {update && (
                 <div className="mt-2 ">
                   <div className="flex gap-2">
-                    <input
+                    <input onChange={(e)=> setNewName(e.target.value)}
                       className="px-3 py-2 w-full rounded-md"
                       type="text"
                       name=""
                       id=""
                       placeholder="New Name"
                     />
-                    <input
+                    <input onChange={(e)=> setNewEmail(e.target.value)}
                       className="px-3 py-2 w-full rounded-md"
                       type="text"
                       name=""
@@ -108,7 +124,7 @@ const Profile = () => {
                 </button>
               ) : (
                 <button
-                  onClick={() => setUpdate(!update)}
+                  onClick={handleUpdateProfile}
                   className="btn btn-primary absolute end-3 bottom-1"
                 >
                   Save
