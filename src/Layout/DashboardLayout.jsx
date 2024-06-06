@@ -14,7 +14,7 @@ const DashboardLayout = () => {
         </div>
 
         {/* Dynamic outlet */}
-        <div className="flex-1  mr-8 px-10 py-10">
+        <div className="flex-1   px-10 py-10 md:ml-[319px]">
           <Outlet/>
         </div>
       </div>

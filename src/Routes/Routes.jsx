@@ -8,6 +8,7 @@ import MyDonationRequests from "../Dashboard/Pages/MyDonationRequests";
 import WelcomeSection from "../components/WelcomeSection";
 import CreateDonation from "../Dashboard/Pages/CreateDonation";
 import AllUser from "../Dashboard/Pages/AllUser";
+import Profile from "../Dashboard/Pages/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
       {
         path: "all-users",
         element: <AllUser/>
+      },
+      {
+        path: "my-profile",
+        element: <Profile/>
       },
     ]
   }

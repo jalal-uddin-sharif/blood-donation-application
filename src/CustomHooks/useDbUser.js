@@ -2,7 +2,7 @@ import useAxiosSecure from "./useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "./useAuth";
 
-const useRole = () => {
+const useDbUser = () => {
   const myAxios = useAxiosSecure();
   const { user } = useAuth();
   const email = user?.email;
@@ -10,11 +10,11 @@ const useRole = () => {
   const { data: Role } = useQuery({
     queryFn: async () => {
       const data = await myAxios(`/get-user/${email}`);
-      return data.data.Role;
+      return data.data;
     },
     queryKey: ["user", user?.email],
   });
   return Role;
 };
 
-export default useRole;
+export default useDbUser;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const DistrictUpazila = ({ setDistrict, setUpazila, district }) => {
+const DistrictUpazila = ({ setDistrict, setUpazila, district, upazila }) => {
   const location = [
     {
       district: "Bagerhat",
@@ -778,16 +778,14 @@ const DistrictUpazila = ({ setDistrict, setUpazila, district }) => {
 
   return (
     <div className=" flex gap-4 w-full">
-      <div className="w-full flex flex-col">
+      <div className="w-full flex flex-col gap-1">
     <label htmlFor="">District</label>
         <select
+        defaultValue={district}
           required
           onChange={handleDistrict}
           className="select select-primary w-full max-w-xs focus:outline-none"
         >
-          <option disabled selected>
-            Select your District
-          </option>
           {location?.map((loca, idx) => (
             <option key={idx} value={loca.district}>
               {loca.district}
@@ -797,18 +795,17 @@ const DistrictUpazila = ({ setDistrict, setUpazila, district }) => {
       </div>
 
       {/* Upazila */}
-      <div className="w-full flex flex-col">
+      <div className="w-full flex flex-col gap-1">
         {district && (
             <>
     <label htmlFor="">Upazila</label>
              <select
             required
+            defaultValue={upazila}
             onChange={handleUpazila}
             className="select select-primary w-full max-w-xs focus:outline-none"
           >
-            <option disabled selected>
-              Select Upazila
-            </option>
+           
             {location.map(
               (data) =>
                 data.district === district &&
