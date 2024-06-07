@@ -13,7 +13,7 @@ import { FaUsers } from "react-icons/fa";
 
 const Sidebar = () => {
   const { user } = useAuth();
-  const User = useDbUser();
+  const [User] = useDbUser();
   const Role = User?.Role
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 

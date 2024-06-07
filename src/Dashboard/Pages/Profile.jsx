@@ -75,7 +75,7 @@ const handleImageUpload = async(e) =>{
     }
   };
 
-  useEffect(()=>{},[refresh])
+
   return (
     <div>
       <div className="min-h-[calc(100vh-200px)] flex justify-center items-center">
@@ -157,6 +157,7 @@ const handleImageUpload = async(e) =>{
                       setDistrict={setDistrict}
                       setUpazila={setUpazila}
                       upazila={upazila || User?.upazila}
+                      defaultValue={User?.district}
                     />
                   </div>
                   <div className="relative flex w-full max-w-sm flex-col gap-1">

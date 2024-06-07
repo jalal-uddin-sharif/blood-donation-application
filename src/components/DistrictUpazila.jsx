@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const DistrictUpazila = ({ setDistrict, setUpazila, district, upazila }) => {
+const DistrictUpazila = ({ setDistrict, setUpazila, district, upazila, defaultValue }) => {
   const location = [
     {
       district: "Bagerhat",
@@ -786,6 +786,7 @@ const DistrictUpazila = ({ setDistrict, setUpazila, district, upazila }) => {
           onChange={handleDistrict}
           className="select select-primary w-full max-w-xs focus:outline-none"
         >
+         {!defaultValue && <option>Select district</option>}
           {location?.map((loca, idx) => (
             <option key={idx} value={loca.district}>
               {loca.district}

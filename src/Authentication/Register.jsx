@@ -181,7 +181,7 @@ const myAxios = useAxiosSecure()
             )
           }
           </div>
-          <DistrictUpazila setDistrict={setDistrict} setUpazila={setUpazila} district={district}/>
+          <DistrictUpazila setDistrict={setDistrict} setUpazila={setUpazila} district={district} />
           {
             error && (
               <p className="-mt-2 text-red-700" role="alert">
