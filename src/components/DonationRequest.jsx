@@ -66,7 +66,7 @@ const DonationRequest = ({data}) => {
                 }
                 
                 <td>
-                  <div className="space-x-2">
+                  <div className="space-x-2 flex">
                     {data.donation_status === "inprogress" ? 
                       <>
                         <button className="p-1 bg-gray-100 rounded-md hover:bg-gray-300">

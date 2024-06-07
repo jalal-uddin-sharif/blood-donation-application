@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../CustomHooks/useAuth";
 import Navitems from "./Navitems";
-import { MdOutlineSpaceDashboard } from "react-icons/md";
+import { MdOutlineBloodtype, MdOutlineSpaceDashboard } from "react-icons/md";
 import useDbUser from "../CustomHooks/useDbUser";
 import { BiDonateHeart } from "react-icons/bi";
 import { IoMdCreate } from "react-icons/io";
@@ -135,19 +135,23 @@ const Sidebar = () => {
           </div>
           <div className="flex-1 flex flex-col h-full overflow-auto">
             <ul className="px-4 text-sm font-medium flex-1">
-              <Navitems address={"/dashboard"} label={"Dashboard"} icon={<MdOutlineSpaceDashboard />} />
+              <Navitems address={"/dashboard"} label={"Dashboard"} icon={<MdOutlineSpaceDashboard size={20} />} />
               <Navitems
                 address={"/dashboard/my-donation-requests"}
-                label={"My Donation"} icon={<BiDonateHeart />}
+                label={"My donation request"} icon={<BiDonateHeart size={20} />}
               />
               <Navitems
                 address={"/dashboard/create-donation-requests"}
-                label={"Create Donation"}  icon={<IoMdCreate />}
+                label={"Create donation request"}  icon={<IoMdCreate size={20} />}
               />
 
               {/* admin only */}
               {Role === "Admin" && (
-                <Navitems address={"/dashboard/all-users"} label={"All user"} icon={<FaUsers />} />
+                <Navitems address={"/dashboard/all-blood-donation-request"} label={"All Blood donation request"} icon={<MdOutlineBloodtype size={20} />} />
+              )}
+
+              {Role === "Admin" && (
+                <Navitems address={"/dashboard/all-users"} label={"All user"} icon={<FaUsers size={20} />} />
               )}
             </ul>
             <div>

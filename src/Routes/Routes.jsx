@@ -9,6 +9,7 @@ import WelcomeSection from "../components/WelcomeSection";
 import CreateDonation from "../Dashboard/Pages/CreateDonation";
 import AllUser from "../Dashboard/Pages/AllUser";
 import Profile from "../Dashboard/Pages/Profile";
+import AllBloodDonation from "../Dashboard/Pages/AllBloodDonation";
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
       {
         path: "my-profile",
         element: <Profile/>
+      },
+      {
+        path: "all-blood-donation-request",
+        element: <AllBloodDonation/>
       },
     ]
   }

@@ -1,34 +1,81 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useDbUser from "../../CustomHooks/useDbUser";
 import DistrictUpazila from "../../components/DistrictUpazila";
+import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
+import { ImSpinner3 } from "react-icons/im";
+
+import Swal from "sweetalert2";
+import { imageUpload } from "../../utils";
 
 const Profile = () => {
-  const User = useDbUser();
+  const [User, refetch] = useDbUser();
   console.log(User);
+  const myAxios = useAxiosSecure();
   const [update, setUpdate] = useState(false);
-  const [bloodGroup, setBloodGroup] = useState(User?.bloodGroup)
-  const [district, setDistrict] = useState(User?.district) 
-  const [upazila, setUpazila] = useState(User?.upazila)
-  const [newName, setNewName] = useState(User?.Name)
-  const [newEmail, setNewEmail]= useState(User?.Email)
+  const [bloodGroup, setBloodGroup] = useState(User?.bloodGroup);
+  const [district, setDistrict] = useState(User?.district);
+  const [upazila, setUpazila] = useState(User?.upazila);
+  const [newName, setNewName] = useState(User?.Name);
+  const [imageUrl,setImageUrl] = useState(User?.imageUrl)
+  // const [newEmail, setNewEmail]= useState(User?.Email)
+  const [refresh, setRefresh] = useState(false)
 
-  console.log(district);
+const handleImageUpload = async(e) =>{
+  const image = await imageUpload(e.target.files[0])
+  setImageUrl(image)
+}
 
   const handleBloodGroup = (e) => {
     setBloodGroup(e.target.value);
   };
 
-
-  const handleUpdateProfile = () =>{
+  const [spin, setSpin] = useState(false);
+  const handleUpdateProfile = async () => {
+    setSpin(true);
     const Name = newName;
-    const Email = newEmail;
-    const Role = User?.Role
-    const status = User?.status
+    const Email = User?.Email;
+    const Role = User?.Role;
+    const status = User?.status;
 
-    const updatedUserData = {Name, Email, district, upazila, bloodGroup, Role, status }
+    const updatedUserData = {
+      Name,
+      Email,
+      district,
+      upazila,
+      bloodGroup,
+      Role,
+      status, imageUrl
+    };
     console.log(updatedUserData);
+    const data = await myAxios.put(
+      `/update-user-profile/${Email}`,
+      updatedUserData
+    );
+    console.log(data.data);
+    if (data.data.modifiedCount > 0) {
+      Swal.fire({
+        icon: "success",
+        title: "Your profile updated",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setSpin(false);
+      setUpdate(!update);
+      refetch()
+      setRefresh(!refresh)
+    } else {
+      Swal.fire({
+        icon: "success",
+        title: "Data uptodate",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setSpin(false);
+      setUpdate(!update);
+    }
+  };
 
-  }
+  useEffect(()=>{},[refresh])
   return (
     <div>
       <div className="min-h-[calc(100vh-200px)] flex justify-center items-center">
@@ -50,10 +97,18 @@ const Profile = () => {
                   <img src={User?.imageUrl} />
                 </div>
               </div>
-              <h1 className="font-medium text-lg ">{User?.Name} ( <span className={`${User?.Role === "Admin" && "text-green-600"} 
+              <h1 className="font-medium text-lg ">
+                {User?.Name} ({" "}
+                <span
+                  className={`${User?.Role === "Admin" && "text-green-600"} 
               ${User?.Role === "Donor" && "text-red-700"}
               ${User?.Role === "Volunteer" && "text-blue-600"}
-              `} > {User?.Role}</span> )
+              `}
+                >
+                  {" "}
+                  {User?.Role}
+                </span>{" "}
+                )
               </h1>
               <h1 className="font-medium text-sm">{User?.Email}</h1>
             </div>
@@ -69,19 +124,13 @@ const Profile = () => {
               {update && (
                 <div className="mt-2 ">
                   <div className="flex gap-2">
-                    <input onChange={(e)=> setNewName(e.target.value)}
+                    <input
+                      onChange={(e) => setNewName(e.target.value)}
                       className="px-3 py-2 w-full rounded-md"
                       type="text"
                       name=""
                       id=""
                       placeholder="New Name"
-                    />
-                    <input onChange={(e)=> setNewEmail(e.target.value)}
-                      className="px-3 py-2 w-full rounded-md"
-                      type="text"
-                      name=""
-                      id=""
-                      placeholder="New Email"
                     />
                   </div>
                   <div className="w-2/3">
@@ -110,6 +159,21 @@ const Profile = () => {
                       upazila={upazila || User?.upazila}
                     />
                   </div>
+                  <div className="relative flex w-full max-w-sm flex-col gap-1">
+                    <label
+                      className="w-fit pl-0.5 text-sm text-slate-700 dark:text-slate-300"
+                      htmlFor="fileInput"
+                    >
+                      Upload Image
+                    </label>
+                    <input
+                    onChange={handleImageUpload}
+                      id="fileInput"
+                      accept="image/*"
+                      type="file"
+                      className="w-full overflow-clip rounded-xl border border-slate-300 bg-slate-100/50 text-sm text-slate-700 file:mr-4 file:cursor-pointer file:border-none file:bg-slate-100 file:px-4 file:py-2 file:font-medium file:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 disabled:cursor-not-allowed disabled:opacity-75 dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-300 dark:file:bg-slate-800 dark:file:text-white dark:focus-visible:outline-blue-600"
+                    />
+                  </div>
                 </div>
               )}
             </div>
@@ -127,7 +191,13 @@ const Profile = () => {
                   onClick={handleUpdateProfile}
                   className="btn btn-primary absolute end-3 bottom-1"
                 >
-                  Save
+                  {spin ? (
+                    <span className="flex items-center justify-center gap-1">
+                      Saving <ImSpinner3 className="animate-spin mt-0.5" />
+                    </span>
+                  ) : (
+                    <span>Save</span>
+                  )}
                 </button>
               )}
             </div>
