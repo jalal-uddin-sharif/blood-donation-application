@@ -12,31 +12,33 @@ import useDonationData from "../../CustomHooks/useDonationData";
 const UpdateRequest = () => {
   const { id } = useParams();
   const { data: donationReqData } = useDonationData(id);
-const myAxios = useAxiosSecure()
-  
+  const myAxios = useAxiosSecure();
+
   const [districts, setDistrict] = useState();
   const [upazilas, setUpazila] = useState();
   const [bdgroup, setBloodGroup] = useState();
   const [error, setError] = useState();
   const [groupError, setGroupError] = useState();
   const [User] = useDbUser();
-  
-  const [donationDate, setDonationDate] = useState(new Date().toLocaleDateString());
+
+  const [donationDate, setDonationDate] = useState(
+    new Date().toLocaleDateString()
+  );
   const [donationTime, setDonationTime] = useState(new Date());
-  
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-    reset
+    reset,
   } = useForm({
     defaultValues: {
       recipientName: donationReqData?.recipientName,
       hospital: donationReqData?.hospital,
       address: donationReqData?.address,
       message: donationReqData?.message,
-    }
+    },
   });
 
   useEffect(() => {
@@ -57,20 +59,16 @@ const myAxios = useAxiosSecure()
       });
     }
 
-   
-      const bloodGroup = bdgroup || donationReqData?.bloodGroup
-      const upazila = upazilas || donationReqData?.upazila
-      const district = districts || donationReqData?.district
-  
-  
+    const bloodGroup = bdgroup || donationReqData?.bloodGroup;
+    const upazila = upazilas || donationReqData?.upazila;
+    const district = districts || donationReqData?.district;
 
     console.log(data);
     setError("");
-    const recipientName =data.recipientName || donationReqData.recipientName;
+    const recipientName = data.recipientName || donationReqData.recipientName;
     const hospital = data.hospital || donationReqData?.hospital;
     const message = data.message || donationReqData?.message;
     const address = data.address || donationReqData?.address;
-    const donatinStatus = donationReqData?.donatinStatus;
     const donationDates = donationDate;
     const donationTimes = donationTime.toLocaleTimeString();
 
@@ -82,25 +80,22 @@ const myAxios = useAxiosSecure()
       district,
       upazila,
       bloodGroup,
-      donatinStatus,
       donationDates,
       donationTimes,
-      
     };
 
-    console.log(UpdateDonationReqData);
-    console.log(id);
-
-    const donationData = await myAxios.put(`/update-donation-request/${id}`, UpdateDonationReqData)
+    const donationData = await myAxios.put(
+      `/update-donation-request/${id}`,
+      UpdateDonationReqData
+    );
     console.log(donationData.data);
-    if(donationData.data.success){
+    if (donationData.data.success) {
       Swal.fire({
         icon: "success",
         title: "Your request updated",
         showConfirmButton: false,
-        timer: 1500
-      });   
-   
+        timer: 1500,
+      });
     }
   };
 
@@ -118,11 +113,15 @@ const myAxios = useAxiosSecure()
         <div className="mb-8">
           <h1 className="text-lg font-medium ">
             Requester name:{" "}
-            <span className="text-pink-600">{donationReqData?.requesterName}</span>
+            <span className="text-pink-600">
+              {donationReqData?.requesterName}
+            </span>
           </h1>
           <h1 className="text-lg font-medium ">
             Requester email:{" "}
-            <span className="text-pink-600">{donationReqData?.requesterEmail}</span>
+            <span className="text-pink-600">
+              {donationReqData?.requesterEmail}
+            </span>
           </h1>
         </div>
 
@@ -132,7 +131,9 @@ const myAxios = useAxiosSecure()
             <input
               className="outline-none rounded-md mb-2 p-3 w-full"
               placeholder="Recipient Name"
-              {...register("recipientName", { required: !donationReqData?.recipientName })}
+              {...register("recipientName", {
+                required: !donationReqData?.recipientName,
+              })}
               aria-invalid={errors.recipientName ? "true" : "false"}
             />
             {errors.recipientName && (
@@ -149,7 +150,9 @@ const myAxios = useAxiosSecure()
               required
               className="select select-info select- w-full focus:outline-none bg-gray-50 text-red-500 text-xl"
             >
-              <option value={donationReqData?.bloodGroup}>Select blood group</option>
+              <option value={donationReqData?.bloodGroup}>
+                Select blood group
+              </option>
               <option value={"A+"}>A+</option>
               <option value={"A-"}>A-</option>
               <option value={"B+"}>B+</option>

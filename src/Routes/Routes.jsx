@@ -12,6 +12,8 @@ import Profile from "../Dashboard/Pages/Profile";
 import AllBloodDonation from "../Dashboard/Pages/AllBloodDonation";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import UpdateRequest from "../Dashboard/Pages/UpdateRequest";
+import Content from "../Dashboard/Pages/Content";
+import CreateBlog from "../Dashboard/Pages/CreateBlog";
 
 export const router = createBrowserRouter([
   {
@@ -66,6 +68,14 @@ export const router = createBrowserRouter([
       {
         path: "all-blood-donation-request",
         element: <AllBloodDonation/>
+      },
+      {
+        path: "content-management",
+        element: <Content/>
+      },
+      {
+        path: "content-management/add-blog",
+        element: <CreateBlog/>
       },
     ]
   }

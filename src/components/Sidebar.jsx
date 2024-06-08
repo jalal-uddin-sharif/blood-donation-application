@@ -153,6 +153,9 @@ const Sidebar = () => {
               {Role === "Admin" && (
                 <Navitems address={"/dashboard/all-users"} label={"All user"} icon={<FaUsers size={20} />} />
               )}
+              {Role === "Admin" && (
+                <Navitems address={"/dashboard/content-management"} label={"Content management"} icon={<FaUsers size={20} />} />
+              )}
             </ul>
             <div>
               <ul className="px-4 pb-4 text-sm font-medium">
