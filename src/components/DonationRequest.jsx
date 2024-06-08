@@ -3,8 +3,10 @@ import { CiEdit } from "react-icons/ci";
 import { ImCancelCircle } from "react-icons/im";
 import { IoMdCheckmarkCircleOutline, IoMdEye } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const DonationRequest = ({data}) => {
+  console.log(data);
 
   return (
     <div>
@@ -69,7 +71,7 @@ const DonationRequest = ({data}) => {
                   <div className="space-x-2 flex">
                     {data.donation_status === "inprogress" ? 
                       <>
-                        <button className="p-1 bg-gray-100 rounded-md hover:bg-gray-300">
+                        <button  className="p-1 bg-gray-100 rounded-md hover:bg-gray-300">
                           <IoMdCheckmarkCircleOutline size={20} color="blue" />
                         </button>
                         <button className="p-1 bg-gray-100 rounded-md hover:bg-gray-300">
@@ -77,13 +79,14 @@ const DonationRequest = ({data}) => {
                         </button>
                       </> :
                       <>
-                      <button className="p-1 bg-gray-100 rounded-md hover:bg-gray-300">
+                      <Link to={`/dashboard/update-donation-requests/${data._id}`}>
+                      <button  title="Edit" className="p-1 bg-gray-100 rounded-md hover:bg-gray-300">
                       <CiEdit size={20} color="green" />
-                    </button>
-                    <button className="p-1 bg-gray-100 rounded-md hover:bg-gray-300">
+                    </button></Link>
+                    <button  title="delete" className="p-1 bg-gray-100 rounded-md hover:bg-gray-300">
                       <MdDelete size={20} color="red" />
                     </button>
-                    <button className="p-1 bg-gray-100 rounded-md hover:bg-gray-300">
+                    <button  title="view" className="p-1 bg-gray-100 rounded-md hover:bg-gray-300">
                       <IoMdEye size={20} color="black" />
                     </button>
                       </>

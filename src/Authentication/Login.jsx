@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../CustomHooks/useAuth";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
     const {loginUser, setUser, user} = useAuth()
     const navigate = useNavigate()
+    const location = useLocation()
   const {
     register,
     formState: { errors },
@@ -23,7 +24,7 @@ const Login = () => {
             timer: 1500
           });
           setUser(res.user)
-          navigate("/")
+          navigate(location?.state || '/')
     })
     .catch(err =>{
         console.log(err);
@@ -36,11 +37,11 @@ const Login = () => {
     })
   }
 
-  useEffect(()=>{
-    if(user){
-      return navigate("/")
-    }
-  },[])
+  // useEffect(()=>{
+  //   if(user){
+  //     return navigate("/")
+  //   }
+  // },[])
   return (
     <div className="flex justify-center my-10">
     <div className="bg-gray-100 w-2/5 rounded-md">

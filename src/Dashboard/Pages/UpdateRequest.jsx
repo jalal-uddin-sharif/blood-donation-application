@@ -6,18 +6,22 @@ import DatePickerkeep from "../../components/DatePickerkeep";
 import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useDbUser from "../../CustomHooks/useDbUser";
+import { useParams } from "react-router-dom";
+import useDonationData from "../../CustomHooks/useDonationData";
 
-const CreateDonation = () => {
-  const { user } = useAuth();
-  const [district, setDistrict] = useState();
-  const [upazila, setUpazila] = useState();
-  const [bloodGroup, setBloodGroup] = useState();
+const UpdateRequest = () => {
+  const id = useParams()
+  const {data: donationReqData }= useDonationData(id.id)
+  
+  const [district, setDistrict] = useState(donationReqData?.district);
+  const [upazila, setUpazila] = useState(donationReqData?.upazila);
+  const [bloodGroup, setBloodGroup] = useState(donationReqData?.bloodGroup);
   const [error, setError] = useState();
   const [groupError, setGroupError] = useState();
   const [User] = useDbUser()
-  console.log(User.status);
+  
 
-  const myAxios = useAxiosSecure()
+
 
   const [donationDate, setDonationDate] = useState(
     new Date().toLocaleDateString()
@@ -42,9 +46,6 @@ const CreateDonation = () => {
       });
     }
     console.log(data);
-    if (groupError === undefined) {
-      return setGroupError("Blood group required");
-    }
 
 
     if (district === undefined || upazila === undefined) {
@@ -52,17 +53,17 @@ const CreateDonation = () => {
     }
   
 setError("")
-    const requesterName = user?.displayName;
-    const requesterEmail = user?.email;
-    const recipientName = data.recipientName;
+    const requesterName = donationReqData?.requesterEmail;
+    const requesterEmail = donationReqData?.requesterEmail
+    const recipientName = donationReqData.recipientName;
     const hospital = data.hospital;
     const message = data.message;
     const address = data.address;
-    const donatinStatus = "pending";
+    const donatinStatus = donationReqData?.donatinStatus
     const donationDates = donationDate
     const donationTimes = donationTime.toLocaleTimeString()
 
-    const donationReqData = {
+    const UpdateDonationReqData = {
       requesterName,
       requesterEmail,
       recipientName,
@@ -76,20 +77,20 @@ setError("")
       donationDates,
       donationTimes
     };
-    console.log(donationReqData);
+    console.log(UpdateDonationReqData);
 
-    const donationData = await myAxios.post("/new-donation-request", donationReqData)
-    console.log(donationData.data);
-    if(donationData.data.insertedId){
+    // const donationData = await myAxios.post("/new-donation-request", donationReqData)
+    // console.log(donationData.data);
+    // if(donationData.data.insertedId){
    
-      Swal.fire({
-        icon: "success",
-        title: "Your request submitted",
-        showConfirmButton: false,
-        timer: 1500
-      });   
-      reset()
-    }
+    //   Swal.fire({
+    //     icon: "success",
+    //     title: "Your request submitted",
+    //     showConfirmButton: false,
+    //     timer: 1500
+    //   });   
+    //   reset()
+    // }
   };
 
   const handleBloodGroup = (e) => {
@@ -108,11 +109,11 @@ setError("")
         <div className="mb-8">
           <h1 className="text-lg font-medium ">
             Requester name:{" "}
-            <span className="text-pink-600"> {user?.displayName} </span>
+            <span className="text-pink-600"> {donationReqData?.requesterName} </span>
           </h1>
           <h1 className="text-lg font-medium ">
             Requester email:{" "}
-            <span className="text-pink-600"> {user?.email} </span>
+            <span className="text-pink-600"> {donationReqData?.requesterEmail} </span>
           </h1>
         </div>
 
@@ -120,6 +121,7 @@ setError("")
           <div className="w-full">
             <label>Recipient Name</label>
             <input
+            defaultValue={donationReqData?.recipientName}
               className="outline-none rounded-md mb-2 p-3 w-full"
               placeholder="Recipient Name"
               name="recipientName"
@@ -135,13 +137,12 @@ setError("")
           <div className="w-full">
             <label htmlFor="">Blood Group</label>
             <select
+            defaultValue={donationReqData?.bloodGroup}
               onChange={handleBloodGroup}
               required
               className="select select-info select- w-full focus:outline-none bg-gray-50 text-red-500 text-xl"
             >
-              <option disabled selected>
-                Select Blood Group
-              </option>
+              
               <option value={"A+"}>A+</option>
               <option value={"A-"}>A-</option>
               <option value={"B+"}>B+</option>
@@ -175,6 +176,7 @@ setError("")
         <div>
           <label>Hospital Name</label>
           <input
+          defaultValue={donationReqData?.hospital}
             className="outline-none rounded-md mb-2 p-3 w-full"
             placeholder="Hospital Name"
             name="HospitalName"
@@ -183,13 +185,14 @@ setError("")
           />
           {errors.hospital?.type === "required" && (
             <p className="-mt-2 text-red-700" role="alert">
-              Name is required
+              Hospital name is required
             </p>
           )}
         </div>
         <div>
           <label>Full Address</label>
           <input
+          defaultValue={donationReqData?.address}
             className="outline-none rounded-md mb-2 p-3 w-full"
             placeholder="ex- chittagong,rangunia, padua-rajarhat"
             name="address"
@@ -198,7 +201,7 @@ setError("")
           />
           {errors.address?.type === "required" && (
             <p className="-mt-2 text-red-700" role="alert">
-              Name is required
+              address is required
             </p>
           )}
         </div>
@@ -214,6 +217,7 @@ setError("")
         <div>
           <label>Message</label>
           <textarea
+          defaultValue={donationReqData?.message}
             className="outline-none rounded-md mb-2 p-3 w-full textarea textarea-bordered"
             placeholder="ex- chittagong,rangunia, padua-rajarhat"
             name="message"
@@ -222,7 +226,7 @@ setError("")
           />
           {errors.message?.type === "required" && (
             <p className="-mt-2 text-red-700" role="alert">
-              Name is required
+              Message is required
             </p>
           )}
         </div>
@@ -235,4 +239,4 @@ setError("")
   );
 };
 
-export default CreateDonation;
+export default UpdateRequest;

@@ -806,6 +806,7 @@ const DistrictUpazila = ({ setDistrict, setUpazila, district, upazila, defaultVa
             onChange={handleUpazila}
             className="select select-primary w-full max-w-xs focus:outline-none"
           >
+            <option>Select Upazila</option>
            
             {location.map(
               (data) =>

@@ -10,6 +10,8 @@ import CreateDonation from "../Dashboard/Pages/CreateDonation";
 import AllUser from "../Dashboard/Pages/AllUser";
 import Profile from "../Dashboard/Pages/Profile";
 import AllBloodDonation from "../Dashboard/Pages/AllBloodDonation";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import UpdateRequest from "../Dashboard/Pages/UpdateRequest";
 
 export const router = createBrowserRouter([
   {
@@ -33,7 +35,9 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout/>,
+    element:
+      <DashboardLayout/>,
+  
     children: [
       {
       index: true,
@@ -46,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path: "create-donation-requests",
         element: <CreateDonation/>
+      },
+      {
+        path: "update-donation-requests/:id",
+        element: <UpdateRequest/>
       },
       {
         path: "all-users",
