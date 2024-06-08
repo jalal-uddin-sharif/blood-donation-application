@@ -19,7 +19,7 @@ const Sidebar = () => {
 
   const navsFooter = [
     {
-      href: "javascript:void(0)",
+      href: "",
       name: "Help",
       icon: (
         <svg
@@ -39,7 +39,7 @@ const Sidebar = () => {
       ),
     },
     {
-      href: "javascript:void(0)",
+      href: "",
       name: "Settings",
       icon: (
         <svg
@@ -64,7 +64,7 @@ const Sidebar = () => {
       ),
     },
     {
-      href: "javascript:void(0)",
+      href: "",
       name: "Logout",
       icon: (
         <svg
@@ -91,7 +91,7 @@ const Sidebar = () => {
   return (
     <div>
       <div className="sm:hidden flex items-center justify-between p-4 bg-white border-b">
-        <a href="javascript:void(0)">
+        <a>
           <img
             src="https://i.ibb.co/hgyKrGR/Red-Love-1.png"
             width={140}
@@ -125,7 +125,7 @@ const Sidebar = () => {
       >
         <div className="flex flex-col h-full">
           <div className="h-20 flex items-center px-8">
-            <a href="javascript:void(0)" className="flex-none">
+            <a href="#" className="flex-none">
               <img
                 src="https://i.ibb.co/hgyKrGR/Red-Love-1.png"
                 width={150}
