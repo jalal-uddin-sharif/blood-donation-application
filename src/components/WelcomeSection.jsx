@@ -1,33 +1,29 @@
-import React from "react";
-import useAuth from "../CustomHooks/useAuth";
-import DonationRequest from "./DonationRequest";
-import useAxiosSecure from "../CustomHooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
 
-const WelcomeSection = () => {
-   const { user } = useAuth();
-  const email = user?.email
-  const myAxios = useAxiosSecure()
-  const {data}=useQuery({
-      queryFn: ()=> getDonationData(),
-      queryKey: ['recentDonation', email]
-  })
 
-  const getDonationData = async() =>{
-      const {data} = await myAxios(`my-recent-donation/${email}`)
-      return data;
-  }
+
+const WelcomeSection = ({User}) => {
+
+
  
   return (
     <div>
-      <div className="my-10">
-        <h1 className="text-lg font-medium">
-          Hello, <span className="text-green-700">{user?.displayName}</span>
+      <div className=" text-center  space-y-1">
+        <h1 className="text-2xl font-medium">
+          Welcome back, <span className="text-green-700">{User?.Name}</span>
         </h1>
+        {
+          User?.Role === "Donor" &&
+        <h2 className="text-lg font-medium">Thank you for your commitment to saving lives.</h2>
+        }
+        {
+          User?.Role === "Volunteer" &&
+        <h2>We appreciate your dedication to supporting blood donation efforts.</h2>
+        }
+        {
+          User?.Role === "Admin" &&
+        <h2  className="text-lg "> You can manage blood requests, donors, and volunteers here.</h2>
+        }
       </div>
-    
-      {/* recent donation */}
-      <DonationRequest data={data}/>
     </div>
   );
 };

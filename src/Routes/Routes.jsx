@@ -14,6 +14,7 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import UpdateRequest from "../Dashboard/Pages/UpdateRequest";
 import Content from "../Dashboard/Pages/Content";
 import CreateBlog from "../Dashboard/Pages/CreateBlog";
+import DashboardHome from "../Dashboard/DashboardHome";
 
 export const router = createBrowserRouter([
   {
@@ -43,7 +44,7 @@ export const router = createBrowserRouter([
     children: [
       {
       index: true,
-        element: <WelcomeSection/>
+        element: <DashboardHome/>
       },
       {
         path: "my-donation-requests",
