@@ -7,6 +7,7 @@ import {
   MdOutlineUnpublished,
   MdUnpublished,
 } from "react-icons/md";
+import toast from "react-hot-toast";
 
 const Content = () => {
   const posts = [
@@ -62,7 +63,7 @@ const Content = () => {
 
   const [blogStatus, setBlogStatus] = useState("");
   const myAxios = useAxiosSecure();
-  const { data: blogs} = useQuery({
+  const { data: blogs, refetch} = useQuery({
     queryKey: ["all-blogs", blogStatus],
     queryFn: async () => {
       const blogs = await myAxios(`/all-blogs?status=${blogStatus}`);
@@ -81,6 +82,10 @@ const Content = () => {
     const { data } = await myAxios.patch(
       `/update-blog-status/${id}?status=${status}`
     );
+    if(data._id){
+      toast.success(`blog status change to ${status}`)
+    }
+    refetch()
   };
 
   const handlefilter = e =>{
