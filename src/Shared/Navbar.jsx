@@ -5,6 +5,7 @@ import useDbUser from "../CustomHooks/useDbUser";
 const Navbar = () => {
   const { logOut } = useAuth();
   const [User] = useDbUser();
+  console.log(User);
   const navlist = (
     <>
       <li>
@@ -18,7 +19,7 @@ const Navbar = () => {
       </li>
       {!User ? 
          <li>
-         <Link to={"/login"}>Login</Link>
+         <Link  to={"/login"}>Login</Link>
        </li> : ""
       
       }

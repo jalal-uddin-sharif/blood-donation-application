@@ -15,6 +15,7 @@ const Sidebar = () => {
   const { user, logOut } = useAuth();
   const [User] = useDbUser();
   const Role = User?.Role
+  console.log(User);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const navsFooter = [

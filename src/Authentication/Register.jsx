@@ -42,7 +42,7 @@ const myAxios = useAxiosSecure()
     }
     const Role = "Donor"
     const Name = data.name;
-    const Email = data.email;
+    const Email = data.email.toLowerCase();
     const image = data.image[0];
     console.log(image);
     const key = import.meta.env.VITE_IMAGEBB_API_KEY;
