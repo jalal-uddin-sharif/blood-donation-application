@@ -84,7 +84,6 @@ const Content = () => {
   };
 
   const handlefilter = e =>{
-    console.log(e.target.value);
     setBlogStatus(e.target.value)
   }
   return (
