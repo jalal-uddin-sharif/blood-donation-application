@@ -17,6 +17,7 @@ import CreateBlog from "../Dashboard/Pages/CreateBlog";
 import DashboardHome from "../Dashboard/DashboardHome";
 import Home from "../Home/Home";
 import SearchDonors from "../Home/SearchDonors";
+import BloodDonationRequest from "../Home/BloodDonationRequest";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
       {
         path: "/search-donors",
         element: <SearchDonors/>,
+      },
+      {
+        path: "/blood-donation-request",
+        element: <BloodDonationRequest/>,
       },
       {
         path: "/register",

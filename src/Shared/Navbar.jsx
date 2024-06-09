@@ -5,14 +5,13 @@ import useDbUser from "../CustomHooks/useDbUser";
 const Navbar = () => {
   const { logOut } = useAuth();
   const [User] = useDbUser();
-  console.log(User);
   const navlist = (
     <>
       <li>
         <Link to={"/"}>Home</Link>
       </li>
       <li>
-        <Link to={"/register"}>Donation Requests</Link>
+        <Link to={"/blood-donation-request"}>Donation Requests</Link>
       </li>
       <li>
         <Link to={"/login"}>Blog</Link>
