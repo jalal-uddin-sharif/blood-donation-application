@@ -9,7 +9,7 @@ const MyDonationRequests = () => {
     const email = user?.email
     console.log(email);
     const myAxios = useAxiosSecure()
-    const {data}=useQuery({
+    const {data, refetch}=useQuery({
         queryFn: ()=> getDonationData(),
         queryKey: ['donationrequest', user?.email]
     })
@@ -20,7 +20,7 @@ const MyDonationRequests = () => {
     }
     return (
         <div>
-            <DonationRequest data={data} />
+            <DonationRequest data={data} refetch={refetch} />
         </div>
     );
 };

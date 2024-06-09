@@ -15,7 +15,7 @@ const CreateDonation = () => {
   const [error, setError] = useState();
   const [groupError, setGroupError] = useState();
   const [User] = useDbUser()
-  console.log(User.status);
+  console.log(User?.status);
 
   const myAxios = useAxiosSecure()
 
@@ -58,7 +58,7 @@ setError("")
     const hospital = data.hospital;
     const message = data.message;
     const address = data.address;
-    const donatinStatus = "pending";
+    const donationStatus = "pending";
     const donationDates = donationDate
     const donationTimes = donationTime.toLocaleTimeString()
 
@@ -72,7 +72,7 @@ setError("")
       district,
       upazila,
       bloodGroup,
-      donatinStatus,
+      donationStatus,
       donationDates,
       donationTimes
     };
