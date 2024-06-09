@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import {
+  MdDeleteForever,
+  MdDeleteSweep,
   MdOutlinePublishedWithChanges,
   MdOutlineUnpublished,
   MdUnpublished,
@@ -91,6 +93,15 @@ const Content = () => {
   const handlefilter = e =>{
     setBlogStatus(e.target.value)
   }
+
+  const handleDelete = async(id)=>{
+    console.log(id);
+    const {data} = await myAxios.delete(`/delete-blog/${id}`)
+    if(data.deletedCount > 0){
+      toast.success("blog deleted")
+    }
+    refetch()
+  }
   return (
     <div>
       <div className="w-full flex justify-end">
@@ -158,7 +169,9 @@ const Content = () => {
                 </div>
                 <div className="px-4 flex items-center  justify-between">
                   <h1>Blog Status: {items.status} </h1>
-                  {items.status === "draft" ? (
+
+                  <div className="flex gap-1">
+                      {items.status === "draft" ? (
                     <button
                       onClick={() => handleStatus(items._id, "published")}
                       title="click for published"
@@ -175,6 +188,9 @@ const Content = () => {
                       <MdOutlineUnpublished color="red" size={25} />
                     </button>
                   )}
+                  <button onClick={()=>handleDelete(items._id)} title="delete blog" className={`btn btn-circle ${items.status === "draft"? "bg-gray-50 text-red-700" : "bg-red-200"}`}><MdDeleteForever color=""  size={25} /></button>
+                  </div>
+                
                 </div>
               </a>
             </article>
