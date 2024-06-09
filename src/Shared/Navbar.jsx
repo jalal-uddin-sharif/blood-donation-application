@@ -1,27 +1,30 @@
-
 import { Link } from "react-router-dom";
 import useAuth from "../CustomHooks/useAuth";
+import useDbUser from "../CustomHooks/useDbUser";
 
 const Navbar = () => {
-  const {logOut} = useAuth()
+  const { logOut } = useAuth();
+  const [User] = useDbUser();
   const navlist = (
     <>
       <li>
-        <a>Home</a>
+        <Link to={"/"}>Home</Link>
       </li>
       <li>
-        <Link to={'/register'}>Register</Link>
+        <Link to={"/register"}>Donation Requests</Link>
       </li>
       <li>
-        <Link to={'/login'}>Login</Link>
+        <Link to={"/login"}>Blog</Link>
       </li>
+      {!User ? 
+         <li>
+         <Link to={"/login"}>Login</Link>
+       </li> : ""
+      
+      }
       <li>
-        <button onClick={logOut}>Logout</button>
+        <Link to={"/dashboard"}>Dashboard</Link>
       </li>
-      <li>
-        <Link to={'/dashboard'}>Dashboard</Link>
-      </li>
-
     </>
   );
   return (
@@ -51,13 +54,30 @@ const Navbar = () => {
             {navlist}
           </ul>
         </div>
-        <img className="h-16 w-24" src="https://i.ibb.co/hgyKrGR/Red-Love-1.png" alt="" />
+        <img
+          className="h-16 w-24"
+          src="https://i.ibb.co/hgyKrGR/Red-Love-1.png"
+          alt=""
+        />
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navlist}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        {
+          User && 
+          <div className="dropdown dropdown-end">
+      <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+        <div className="w-10 rounded-full">
+          <img alt="Tailwind CSS Navbar component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+        </div>
+      </div>
+      <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+        <li><Link to={"/dashboard"}>Dashboard</Link></li>
+        <li onClick={logOut}><a>Logout</a></li>
+      </ul>
+    </div>
+        }
       </div>
     </div>
   );
