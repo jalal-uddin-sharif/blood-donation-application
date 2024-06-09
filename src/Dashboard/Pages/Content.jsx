@@ -60,10 +60,10 @@ const Content = () => {
     },
   ];
 
-  const [blogStatus, setBlogStatus] = useState("")
+  const [blogStatus, setBlogStatus] = useState("");
   const myAxios = useAxiosSecure();
-  const { data: blogs } = useQuery({
-    queryKey: ["all-blogs"],
+  const { data: blogs} = useQuery({
+    queryKey: ["all-blogs", blogStatus],
     queryFn: async () => {
       const blogs = await myAxios(`/all-blogs?status=${blogStatus}`);
       return blogs.data;
@@ -77,10 +77,16 @@ const Content = () => {
     return doc.body.textContent || "";
   };
 
-  const handleStatus = async(id, status) => {
-    const {data} = await myAxios.patch(`/update-blog-status/${id}?status=${status}`)
+  const handleStatus = async (id, status) => {
+    const { data } = await myAxios.patch(
+      `/update-blog-status/${id}?status=${status}`
+    );
   };
 
+  const handlefilter = e =>{
+    console.log(e.target.value);
+    setBlogStatus(e.target.value)
+  }
   return (
     <div>
       <div className="w-full flex justify-end">
@@ -97,6 +103,16 @@ const Content = () => {
           <p className="mt-3 text-gray-500">
             Blogs that are loved by the community. Updated every hour.
           </p>
+        </div>
+        <div>
+        <select onChange={handlefilter} className="select select-info w-full max-w-xs mt-6">
+          <option disabled selected>
+            Filter by
+          </option>
+          <option value={""}>All</option>
+          <option value={"published"}>Published</option>
+          <option value={"draft"}>Draft</option>
+        </select>
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 ">
           {blogs?.map((items, key) => (
