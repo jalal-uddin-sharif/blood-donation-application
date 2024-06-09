@@ -6,7 +6,7 @@ import { Toaster } from 'react-hot-toast';
 const Roots = () => {
     return (
         <div>
-            <div className='max-w-screen-xl mx-auto'>
+            <div className='lg:max-w-5xl lg:mt-12 xl:max-w-6xl mx-auto'>
 
             <Navbar/>
             <Outlet/>

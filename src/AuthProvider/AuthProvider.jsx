@@ -22,6 +22,9 @@ const AuthProvider = ({children}) => {
     }
     const logOut = () =>{
         signOut(auth)
+        .then(res =>{
+            toast.success("Log out successfull")
+        })
     }
 
 

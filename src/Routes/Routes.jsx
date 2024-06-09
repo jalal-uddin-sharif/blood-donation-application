@@ -15,6 +15,8 @@ import UpdateRequest from "../Dashboard/Pages/UpdateRequest";
 import Content from "../Dashboard/Pages/Content";
 import CreateBlog from "../Dashboard/Pages/CreateBlog";
 import DashboardHome from "../Dashboard/DashboardHome";
+import Home from "../Home/Home";
+import SearchDonors from "../Home/SearchDonors";
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +25,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <div>hello</div>,
+        element: <Home/>,
+      },
+      {
+        path: "/search-donors",
+        element: <SearchDonors/>,
       },
       {
         path: "/register",

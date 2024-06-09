@@ -12,7 +12,7 @@ import { FaUsers } from "react-icons/fa";
 
 
 const Sidebar = () => {
-  const { user } = useAuth();
+  const { user, logOut } = useAuth();
   const [User] = useDbUser();
   const Role = User?.Role
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -66,6 +66,7 @@ const Sidebar = () => {
     {
       href: "",
       name: "Logout",
+      function: logOut,
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -91,13 +92,13 @@ const Sidebar = () => {
   return (
     <div>
       <div className="sm:hidden flex items-center justify-between p-4 bg-white border-b">
-        <a>
+        <Link to={"/"}>
           <img
             src="https://i.ibb.co/hgyKrGR/Red-Love-1.png"
             width={140}
             className="mx-auto"
           />
-        </a>
+        </Link>
         <button
           className="text-gray-600 focus:outline-none"
           onClick={toggleSidebar}
@@ -125,13 +126,13 @@ const Sidebar = () => {
       >
         <div className="flex flex-col h-full">
           <div className="h-20 flex items-center px-8">
-            <a href="#" className="flex-none">
+            <Link to={"/"} className="flex-none">
               <img
                 src="https://i.ibb.co/hgyKrGR/Red-Love-1.png"
                 width={150}
                 className="mx-auto"
               />
-            </a>
+            </Link>
           </div>
           <div className="flex-1 flex flex-col h-full overflow-auto">
             <ul className="px-4 text-sm font-medium flex-1">
@@ -161,13 +162,13 @@ const Sidebar = () => {
               <ul className="px-4 pb-4 text-sm font-medium">
                 {navsFooter.map((item, idx) => (
                   <li key={idx}>
-                    <Link
-                      to={"/"}
-                      className="flex items-center gap-x-2 text-gray-600 p-2 rounded-lg hover:bg-gray-50 active:bg-gray-100 duration-150"
+                    <a onClick={item?.function}
+                    
+                      className="flex items-center gap-x-2 text-gray-600 p-2 rounded-lg hover:bg-gray-50 active:bg-gray-100 duration-150 cursor-pointer"
                     >
                       <div className="text-gray-500">{item.icon}</div>
                       {item.name}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>

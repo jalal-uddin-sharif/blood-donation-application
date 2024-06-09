@@ -15,7 +15,6 @@ import useDbUser from "../../CustomHooks/useDbUser";
 const Content = () => {
 
 const [User] = useDbUser()
-console.log(User.Role);
   const [blogStatus, setBlogStatus] = useState("");
   const myAxios = useAxiosSecure();
   const { data: blogs, refetch} = useQuery({
