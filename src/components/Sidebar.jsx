@@ -12,7 +12,7 @@ import { FaUsers } from "react-icons/fa";
 
 
 const Sidebar = () => {
-  const { user, logOut } = useAuth();
+  const {logOut } = useAuth();
   const [User] = useDbUser();
   const Role = User?.Role
   console.log(User);
@@ -137,26 +137,26 @@ const Sidebar = () => {
           </div>
           <div className="flex-1 flex flex-col h-full overflow-auto">
             <ul className="px-4 text-sm font-medium flex-1">
-              <Navitems address={"/dashboard"} label={"Dashboard"} icon={<MdOutlineSpaceDashboard size={20} />} />
-              <Navitems
+              <Navitems onClick={toggleSidebar}  address={"/dashboard"} label={"Dashboard"} icon={<MdOutlineSpaceDashboard size={20} />} />
+              <Navitems  onClick={toggleSidebar}
                 address={"/dashboard/my-donation-requests"}
                 label={"My donation request"} icon={<BiDonateHeart size={20} />}
               />
-              <Navitems
+              <Navitems onClick={toggleSidebar}
                 address={"/dashboard/create-donation-requests"}
                 label={"Create donation request"}  icon={<IoMdCreate size={20} />}
               />
 
               {/* admin only */}
               {Role === "Admin" && (
-                <Navitems address={"/dashboard/all-blood-donation-request"} label={"All Blood donation request"} icon={<MdOutlineBloodtype size={20} />} />
+                <Navitems onClick={toggleSidebar} address={"/dashboard/all-blood-donation-request"} label={"All Blood donation request"} icon={<MdOutlineBloodtype size={20} />} />
               )}
 
               {Role === "Admin" && (
-                <Navitems address={"/dashboard/all-users"} label={"All user"} icon={<FaUsers size={20} />} />
+                <Navitems onClick={toggleSidebar} address={"/dashboard/all-users"} label={"All user"} icon={<FaUsers size={20} />} />
               )}
               {Role === "Admin" && (
-                <Navitems address={"/dashboard/content-management"} label={"Content management"} icon={<FaUsers size={20} />} />
+                <Navitems onClick={toggleSidebar} address={"/dashboard/content-management"} label={"Content management"} icon={<FaUsers size={20} />} />
               )}
             </ul>
             <div>
@@ -176,14 +176,14 @@ const Sidebar = () => {
               <div className="py-4 px-4 border-t">
                 <div className="flex items-center gap-x-4">
                   <img
-                    src={user?.photoURL}
+                    src={User?.imageUrl}
                     className="w-12 h-12 rounded-full"
                   />
                   <div>
                     <span className="block text-gray-700 text-sm font-semibold">
-                      {user?.displayName}
+                      {User?.Name}
                     </span>
-                    <Link
+                    <Link onClick={toggleSidebar}
                     to={"/dashboard/my-profile"}
                       className="block mt-px text-gray-600 hover:text-indigo-600 text-xs"
                     >

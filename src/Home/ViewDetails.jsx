@@ -1,14 +1,16 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import useAxiosSecure from "../CustomHooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../components/Loader";
 import useDbUser from "../CustomHooks/useDbUser";
 import useAuth from "../CustomHooks/useAuth";
+import toast from "react-hot-toast";
 
 const ViewDetails = () => {
  const [User] = useDbUser()
  const {loading} = useAuth()
+ const navigate = useNavigate()
   const { id } = useParams();
   console.log(id);
   const myAxios = useAxiosSecure();
@@ -36,11 +38,18 @@ const ViewDetails = () => {
     bloodGroup,
     donationDates,
     donationTimes,
-    donationStatus,
   } = data || {};
 
-  const handleConfirm = () =>{
-
+  const donationStatus = "inprogress"
+  const donorName = User?.Name
+  const donorEmail = User?.Email
+  const donorInfo = {donorName, donorEmail, donationStatus}
+  const handleConfirm = async() =>{
+    const {data} =await myAxios.patch(`/confirm-donation/${id}`, donorInfo)
+    if(data._id){
+      navigate("/blood-donation-request")
+      toast.success("donatin accepted")
+    }
   }
   return (
     <div className="min-h flex justify-center items-center font-medium">

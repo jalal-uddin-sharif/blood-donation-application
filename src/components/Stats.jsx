@@ -10,17 +10,16 @@ const Stats = () => {
     const [user, setUser] = useState([])
     const myAxios = useAxiosSecure()
     const {data:bdDonationRequest} = useQuery({
-        queryKey: ["all-donation"],
+        queryKey: ["all-donation-stats"],
         queryFn: async() => {
             const {data} = await myAxios("/all-blood-donation-request")
             setDonation(data)
             const user = await myAxios("/all-users")
-            console.log(user.data);
             setUser(user.data)
+            return data;
 
         }
     })
-console.log(user);
   return (
     <div className="m-10 grid gap-5 sm:grid-cols-3 mx-auto max-w-screen-lg">
       <div className="px-4 py-6 shadow-lg shadow-blue-100">

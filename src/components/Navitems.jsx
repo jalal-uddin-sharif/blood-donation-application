@@ -1,10 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Navitems = ({address, label, icon}) => {
+const Navitems = ({address, label, icon , onClick}) => {
     return (
         <li>
-        <NavLink
+        <NavLink onClick={onClick}
           to={address}
           end
           className={  ({ isActive }) =>

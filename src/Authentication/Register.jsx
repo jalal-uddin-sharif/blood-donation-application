@@ -5,7 +5,7 @@ import DistrictUpazila from "../components/DistrictUpazila";
 import useAuth from "../CustomHooks/useAuth";
 import Swal from "sweetalert2";
 import { ImSpinner9 } from "react-icons/im";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
 import useAxiosSecure from "../CustomHooks/useAxiosSecure";
 
@@ -228,6 +228,7 @@ const myAxios = useAxiosSecure()
           <button className="btn btn-primary w-full" type="submit">{
             !spinner ? "Submit" : "Please wait"
           }<span className={!spinner ? "hidden" : "animate-spin"}><ImSpinner9 /></span> </button>
+          <p>Already have an accout? <Link className="text-green-600" to={"/login"}>Login</Link></p>
         </form>
         <svg className="rounded-b-md" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
           <path 

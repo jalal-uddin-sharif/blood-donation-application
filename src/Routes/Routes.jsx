@@ -21,11 +21,13 @@ import BloodDonationRequest from "../Home/BloodDonationRequest";
 import ViewDetails from "../Home/ViewDetails";
 import Blogs from "../Home/Blogs";
 import BlogDetails from "../Home/BlogDetails";
+import Page404 from "../components/Page404";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Roots />,
+    errorElement: <Page404/>,
     children: [
       {
         path: "/",

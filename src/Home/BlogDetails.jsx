@@ -7,7 +7,7 @@ const BlogDetails = () => {
     const {id} = useParams()
     const myAxios = useAxiosSecure()
     const {data: blogData} = useQuery({
-        queryKey: [""],
+        queryKey: ["blogsDetails"],
         queryFn: async () =>{
             const {data} = await myAxios(`/blog-details/${id}`)
             return data;
