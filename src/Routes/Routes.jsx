@@ -18,6 +18,7 @@ import DashboardHome from "../Dashboard/DashboardHome";
 import Home from "../Home/Home";
 import SearchDonors from "../Home/SearchDonors";
 import BloodDonationRequest from "../Home/BloodDonationRequest";
+import ViewDetails from "../Home/ViewDetails";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,12 @@ export const router = createBrowserRouter([
       {
         path: "/blood-donation-request",
         element: <BloodDonationRequest/>,
+      },
+      {
+        path: "/view-details/:id",
+        element: <PrivateRoute>
+          <ViewDetails/>
+        </PrivateRoute>,
       },
       {
         path: "/register",

@@ -3,9 +3,10 @@ import { useForm } from "react-hook-form";
 import useAuth from "../CustomHooks/useAuth";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const Login = () => {
-    const {loginUser, setUser, user} = useAuth()
+    const {loginUser, loading} = useAuth()
     const navigate = useNavigate()
     const location = useLocation()
   const {
@@ -23,7 +24,6 @@ const Login = () => {
             showConfirmButton: false,
             timer: 1500
           });
-          setUser(res.user)
           navigate(location?.state || '/')
     })
     .catch(err =>{
@@ -37,6 +37,9 @@ const Login = () => {
     })
   }
 
+  if(loading){
+    return <Loader/>
+  }
   // useEffect(()=>{
   //   if(user){
   //     return navigate("/")

@@ -3,7 +3,7 @@ import useAuth from "../CustomHooks/useAuth";
 import useDbUser from "../CustomHooks/useDbUser";
 
 const Navbar = () => {
-  const { logOut } = useAuth();
+  const { logOut} = useAuth();
   const [User] = useDbUser();
   const navlist = (
     <>
