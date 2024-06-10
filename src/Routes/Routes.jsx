@@ -19,6 +19,8 @@ import Home from "../Home/Home";
 import SearchDonors from "../Home/SearchDonors";
 import BloodDonationRequest from "../Home/BloodDonationRequest";
 import ViewDetails from "../Home/ViewDetails";
+import Blogs from "../Home/Blogs";
+import BlogDetails from "../Home/BlogDetails";
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +46,14 @@ export const router = createBrowserRouter([
         </PrivateRoute>,
       },
       {
+        path: "/blogs",
+        element: <Blogs/>,
+      },
+      {
+        path: "/blog-details/:id",
+        element: <BlogDetails/>,
+      },
+      {
         path: "/register",
         element: <Register/>,
       },
@@ -57,7 +67,7 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     element:
-      <DashboardLayout/>,
+     <PrivateRoute> <DashboardLayout/></PrivateRoute>,
   
     children: [
       {

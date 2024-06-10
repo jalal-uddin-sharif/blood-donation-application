@@ -4,10 +4,8 @@ import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import {
   MdDeleteForever,
-  MdDeleteSweep,
   MdOutlinePublishedWithChanges,
   MdOutlineUnpublished,
-  MdUnpublished,
 } from "react-icons/md";
 import toast from "react-hot-toast";
 import useDbUser from "../../CustomHooks/useDbUser";

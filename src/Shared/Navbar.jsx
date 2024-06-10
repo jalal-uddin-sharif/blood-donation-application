@@ -14,7 +14,7 @@ const Navbar = () => {
         <Link to={"/blood-donation-request"}>Donation Requests</Link>
       </li>
       <li>
-        <Link to={"/login"}>Blog</Link>
+        <Link to={"/blogs"}>Blogs</Link>
       </li>
       {!User ? 
          <li>
