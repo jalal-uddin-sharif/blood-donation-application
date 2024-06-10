@@ -37,7 +37,7 @@ const CheckOut = () => {
       type: "card",
       card: elements.getElement(CardNumberElement)
     });
-    console.log("[PaymentMethod]", payload);
+    // console.log("[PaymentMethod]", payload);
   };
 
   return (

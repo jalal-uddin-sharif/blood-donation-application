@@ -12,7 +12,7 @@ const SearchDonors = () => {
   const handleBloodGroup = (e) => {
     setBloodGroup(e.target.value);
   };
-  console.log(bloodGroup, district, upazila);
+
   const myAxios = useAxiosSecure();
 
   const handleSearch = async () => {

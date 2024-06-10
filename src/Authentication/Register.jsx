@@ -44,7 +44,6 @@ const myAxios = useAxiosSecure()
     const Name = data.name;
     const Email = data.email.toLowerCase();
     const image = data.image[0];
-    console.log(image);
     const key = import.meta.env.VITE_IMAGEBB_API_KEY;
     const formData = new FormData();
     formData.append("image", image);
@@ -75,7 +74,7 @@ const myAxios = useAxiosSecure()
         const userData = {Name, Email, district, upazila, imageUrl , bloodGroup, status, Role }
   
         const result =await myAxios.post(`/all-users`, userData)
-        console.log(result.data);
+
         
       })
       .catch(err => 
@@ -88,7 +87,7 @@ const myAxios = useAxiosSecure()
       )
 
     } catch (error) {
-      console.log(error);
+      
     }
 
   };

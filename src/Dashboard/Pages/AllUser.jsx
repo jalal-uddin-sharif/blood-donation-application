@@ -18,7 +18,7 @@ const AllUser = () => {
   };
 
   const handleRole = async (email, role) => {
-    console.log(email, role);
+
     const data = await myAxios.patch(`/update-user-role?email=${email}`, {
       role: role,
     });

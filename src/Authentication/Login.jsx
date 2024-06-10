@@ -17,7 +17,6 @@ const Login = () => {
   const onSubmit = (data) => {
     loginUser(data.email, data.password)
     .then(res => {
-        console.log(res.user);
         Swal.fire({
             icon: "success",
             title: "Successfully Logged",

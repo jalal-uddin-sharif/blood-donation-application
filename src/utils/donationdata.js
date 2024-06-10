@@ -9,7 +9,7 @@ export const donationData = async id =>{
         queryKey: ['donationdata', id],
         queryFn: async()=> {
             const {data} = await myAxios(`/get-request-data/${id}`)
-            console.log(data);
+           
             return data
         }, enabled: !!id
     })

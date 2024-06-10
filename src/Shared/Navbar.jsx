@@ -5,7 +5,6 @@ import useDbUser from "../CustomHooks/useDbUser";
 const Navbar = () => {
   const { logOut} = useAuth();
   const [User] = useDbUser();
-  console.log(User);
   const navlist = (
     <>
       <li>
@@ -17,19 +16,20 @@ const Navbar = () => {
       <li>
         <Link to={"/blogs"}>Blogs</Link>
       </li>
+      <li>
+        <Link to={"/funding"}>Funding</Link>
+      </li>
       {!User ? 
          <li>
          <Link  to={"/login"}>Login</Link>
        </li> : ""
       
       }
-      <li>
-        <Link to={"/funding"}>Funding</Link>
-      </li>
+      
     </>
   );
   return (
-    <div className="navbar bg-gray-50">
+    <div className="navbar ">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

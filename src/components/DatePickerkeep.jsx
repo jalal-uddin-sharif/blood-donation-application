@@ -6,7 +6,6 @@ import "react-datepicker/dist/react-datepicker.css";
 const DatePickerkeep = ({setDonationDate, setDonationTime, donationTime, donationDate}) => {
 
 
-  console.log(donationTime.toLocaleTimeString('en-US', { hour12: true }));
   return (
     <div className="flex gap-4">
       <div>

@@ -9,7 +9,6 @@ import { imageUpload } from "../../utils";
 
 const Profile = () => {
   const [User, refetch] = useDbUser();
-  console.log(User);
   const myAxios = useAxiosSecure();
   const [update, setUpdate] = useState(false);
   const [bloodGroup, setBloodGroup] = useState(User?.bloodGroup);

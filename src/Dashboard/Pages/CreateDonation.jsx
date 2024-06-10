@@ -15,7 +15,7 @@ const CreateDonation = () => {
   const [error, setError] = useState();
   const [groupError, setGroupError] = useState();
   const [User] = useDbUser()
-  console.log(User?.status);
+ 
 
   const myAxios = useAxiosSecure()
 
@@ -41,7 +41,7 @@ const CreateDonation = () => {
         text: "only active user can create donation request",
       });
     }
-    console.log(data);
+
     if (groupError === undefined) {
       return setGroupError("Blood group required");
     }
@@ -76,10 +76,10 @@ setError("")
       donationDates,
       donationTimes
     };
-    console.log(donationReqData);
+  
 
     const donationData = await myAxios.post("/new-donation-request", donationReqData)
-    console.log(donationData.data);
+    
     if(donationData.data.insertedId){
    
       Swal.fire({

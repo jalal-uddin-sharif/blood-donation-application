@@ -12,7 +12,6 @@ const CreateBlog = () => {
   const editorRef = useRef(null);
 
   const [User] = useDbUser()
-  console.log(User);
   const authorName = User?.Name
   const authorEmail = User?.Email;
   const authorLogo = User?.imageUrl
@@ -35,7 +34,7 @@ const CreateBlog = () => {
     e.preventDefault();
     const blogData = { title, thumbnail, content, status, authorName, authorEmail, authorLogo };
     const data = await myAxios.post("create-new-blog", blogData);
-    console.log(data);
+
     if (data.data.insertedId) {
       Swal.fire({
         icon: "success",

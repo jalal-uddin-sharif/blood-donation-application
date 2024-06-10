@@ -63,7 +63,7 @@ const UpdateRequest = () => {
     const upazila = upazilas || donationReqData?.upazila;
     const district = districts || donationReqData?.district;
 
-    console.log(data);
+  
     setError("");
     const recipientName = data.recipientName || donationReqData.recipientName;
     const hospital = data.hospital || donationReqData?.hospital;
@@ -88,7 +88,7 @@ const UpdateRequest = () => {
       `/update-donation-request/${id}`,
       UpdateDonationReqData
     );
-    console.log(donationData.data);
+   
     if (donationData.data.success) {
       Swal.fire({
         icon: "success",

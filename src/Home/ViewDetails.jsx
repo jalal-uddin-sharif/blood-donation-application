@@ -12,7 +12,6 @@ const ViewDetails = () => {
  const {loading} = useAuth()
  const navigate = useNavigate()
   const { id } = useParams();
-  console.log(id);
   const myAxios = useAxiosSecure();
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["donationData"],
