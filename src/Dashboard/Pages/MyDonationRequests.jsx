@@ -7,7 +7,6 @@ import useAuth from "../../CustomHooks/useAuth";
 const MyDonationRequests = () => {
   const { user } = useAuth();
   const email = user?.email;
-  console.log(email);
   const myAxios = useAxiosSecure();
   const { data, refetch } = useQuery({
     queryFn: () => getDonationData(),

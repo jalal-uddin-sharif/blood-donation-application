@@ -15,7 +15,6 @@ const Sidebar = () => {
   const {logOut } = useAuth();
   const [User] = useDbUser();
   const Role = User?.Role
-  console.log(User);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const navsFooter = [
@@ -156,6 +155,9 @@ const Sidebar = () => {
                 <Navitems onClick={toggleSidebar} address={"/dashboard/all-users"} label={"All user"} icon={<FaUsers size={20} />} />
               )}
               {Role === "Admin" && (
+                <Navitems onClick={toggleSidebar} address={"/dashboard/content-management"} label={"Content management"} icon={<FaUsers size={20} />} />
+              )}
+              {Role === "Volunteer" && (
                 <Navitems onClick={toggleSidebar} address={"/dashboard/content-management"} label={"Content management"} icon={<FaUsers size={20} />} />
               )}
             </ul>

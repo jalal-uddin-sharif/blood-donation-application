@@ -22,6 +22,7 @@ import ViewDetails from "../Home/ViewDetails";
 import Blogs from "../Home/Blogs";
 import BlogDetails from "../Home/BlogDetails";
 import Page404 from "../components/Page404";
+import Funding from "../Home/Funding";
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +46,12 @@ export const router = createBrowserRouter([
         path: "/view-details/:id",
         element: <PrivateRoute>
           <ViewDetails/>
+        </PrivateRoute>,
+      },
+      {
+        path: "/funding",
+        element: <PrivateRoute>
+          <Funding/>
         </PrivateRoute>,
       },
       {

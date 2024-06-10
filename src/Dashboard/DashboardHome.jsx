@@ -11,7 +11,7 @@ const DashboardHome = () => {
   const { user } = useAuth();
   const email = user?.email;
   const myAxios = useAxiosSecure();
-  const { data, isLoading } = useQuery({
+  const { data, isLoading , refetch} = useQuery({
     queryFn: () => getDonationData(),
     queryKey: ["recentDonation", email],
   });
@@ -31,7 +31,7 @@ const DashboardHome = () => {
       {
         User?.Role === "Donor" && 
         <div>
-        <DonationRequest data={data} viewAll={true} />
+        <DonationRequest data={data} viewAll={true} refetch={refetch}/>
       </div>
       }
       {

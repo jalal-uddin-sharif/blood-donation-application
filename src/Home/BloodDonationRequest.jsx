@@ -15,9 +15,14 @@ const BloodDonationRequest = () => {
 
   return (
     <div className="min-h">
-      <div>
+      <div className="text-center my-10 text-lg font-medium">
         <h1>Blood Donation Requests</h1>
       </div>
+      { data?.length < 1 &&
+      <div className="text-center text-3xl font-bold">
+        <h1>No data found</h1>
+      </div>
+      }
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 my-10">
         {data?.map(item=>(
            <div key={item._id} className="block rounded-lg space-y-2 bg-gray-100 p-6 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white">

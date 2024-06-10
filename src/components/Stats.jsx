@@ -48,7 +48,7 @@ const Stats = () => {
         </h1>
         <p className="mt-4 font-medium">Total Funding</p>
         <p className="mt-2 text-xl font-medium">
-          23.4k
+          0
         </p>
       </div>
     </div>
