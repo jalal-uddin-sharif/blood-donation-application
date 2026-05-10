@@ -33,12 +33,12 @@ const ContactUs = () => {
     ]
     return (
         <main className="py-14">
-        <div className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8">
+        <div className="brand-section mx-auto max-w-screen-xl px-4 py-10 text-slate-600 md:px-8">
             <div className="max-w-xl space-y-3">
-                <h3 className="text-indigo-600 font-semibold">
+                <h3 className="font-semibold text-pink-600">
                     Contact
                 </h3>
-                <p className="text-gray-800 text-3xl font-semibold sm:text-4xl">
+                <p className="text-3xl font-black text-slate-950 sm:text-4xl">
                     Let us know how we can help
                 </p>
                 <p>
@@ -49,10 +49,10 @@ const ContactUs = () => {
                 <ul className="mt-12 flex flex-wrap gap-x-12 gap-y-6 items-center lg:gap-x-24">
                     {
                         contactMethods.map((item, idx) => (
-                            <li key={idx}>
-                                <h4 className="text-gray-800 text-lg font-medium">{item.title}</h4>
+                            <li key={idx} className="rounded-lg border border-pink-100 bg-pink-50/60 p-4">
+                                <h4 className="text-lg font-semibold text-slate-900">{item.title}</h4>
                                 <div className="mt-3 flex items-center gap-x-3">
-                                    <div className="flex-none text-gray-400">
+                                    <div className="flex-none text-pink-500">
                                         {item.icon}
                                     </div>
                                     <p>{item.contact}</p>

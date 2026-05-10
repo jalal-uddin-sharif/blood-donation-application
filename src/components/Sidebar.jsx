@@ -7,6 +7,7 @@ import useDbUser from "../CustomHooks/useDbUser";
 import { BiDonateHeart } from "react-icons/bi";
 import { IoMdCreate } from "react-icons/io";
 import { FaUsers } from "react-icons/fa";
+import TextLogo from "./TextLogo";
 
 
 
@@ -91,16 +92,12 @@ const Sidebar = () => {
   };
   return (
     <div>
-      <div className="sm:hidden flex items-center justify-between p-4 bg-white border-b">
+      <div className="flex items-center justify-between border-b border-pink-100 bg-white p-4 sm:hidden">
         <Link to={"/"}>
-          <img
-            src="https://i.ibb.co/hgyKrGR/Red-Love-1.png"
-            width={140}
-            className="mx-auto"
-          />
+          <TextLogo />
         </Link>
         <button
-          className="text-gray-600 focus:outline-none"
+          className="text-pink-600 focus:outline-none"
           onClick={toggleSidebar}
         >
           <svg
@@ -120,18 +117,14 @@ const Sidebar = () => {
         </button>
       </div>
       <nav
-        className={`fixed top-0 left-0 w-full h-full border-r bg-white space-y-8 transform ${
+        className={`fixed top-0 left-0 w-full h-full border-r border-pink-100 bg-white/95 space-y-8 transform shadow-xl shadow-pink-100/60 backdrop-blur ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-200 ease-in-out sm:translate-x-0 sm:w-80 z-50`}
       >
         <div className="flex flex-col h-full">
           <div className="h-20 flex items-center px-8">
             <Link to={"/"} className="flex-none">
-              <img
-                src="https://i.ibb.co/hgyKrGR/Red-Love-1.png"
-                width={150}
-                className="mx-auto"
-              />
+              <TextLogo />
             </Link>
           </div>
           <div className="flex-1 flex flex-col h-full overflow-auto">
@@ -167,27 +160,27 @@ const Sidebar = () => {
                   <li key={idx}>
                     <a onClick={item?.function}
                     
-                      className="flex items-center gap-x-2 text-gray-600 p-2 rounded-lg hover:bg-gray-50 active:bg-gray-100 duration-150 cursor-pointer"
+                      className="flex cursor-pointer items-center gap-x-2 rounded-lg p-2 text-slate-600 duration-150 hover:bg-pink-50 hover:text-pink-700 active:bg-pink-100"
                     >
-                      <div className="text-gray-500">{item.icon}</div>
+                      <div className="text-pink-500">{item.icon}</div>
                       {item.name}
                     </a>
                   </li>
                 ))}
               </ul>
-              <div className="py-4 px-4 border-t">
+              <div className="border-t border-pink-100 px-4 py-4">
                 <div className="flex items-center gap-x-4">
                   <img
                     src={User?.imageUrl}
-                    className="w-12 h-12 rounded-full"
+                    className="h-12 w-12 rounded-full border-2 border-pink-100 object-cover"
                   />
                   <div>
-                    <span className="block text-gray-700 text-sm font-semibold">
+                    <span className="block text-sm font-semibold text-slate-800">
                       {User?.Name}
                     </span>
                     <Link onClick={toggleSidebar}
                     to={"/dashboard/my-profile"}
-                      className="block mt-px text-gray-600 hover:text-indigo-600 text-xs"
+                      className="mt-px block text-xs text-slate-500 hover:text-pink-600"
                     >
                       View profile
                     </Link>

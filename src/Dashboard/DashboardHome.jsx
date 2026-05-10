@@ -25,7 +25,7 @@ const DashboardHome = () => {
   }
   return (
     <div>
-      <div className="h-28 bg-gray-100 flex justify-center my-10 items-center">
+      <div className="brand-panel my-10 flex min-h-28 items-center justify-center p-6">
         <WelcomeSection User={User} />
       </div>
       {

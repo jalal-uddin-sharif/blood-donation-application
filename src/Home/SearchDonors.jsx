@@ -27,12 +27,12 @@ const SearchDonors = () => {
   };
   return (
     <div>
-      <div className="h-52 bg-gray-100 my-10 flex flex-col justify-center items-center px-4">
-        <div className="flex  w-full gap-2 px-4">
+      <div className="brand-section my-10 flex min-h-52 flex-col items-center justify-center px-4 py-8">
+        <div className="flex w-full flex-col gap-2 px-4 lg:flex-row">
           <select
             onChange={handleBloodGroup}
             required
-            className="select select-info w-3/4 focus:outline-none bg-gray-50 text-red-500 text-xl"
+            className="select select-primary w-full bg-white text-pink-600 focus:outline-none lg:w-3/4"
           >
             <option disabled selected>
               Select Blood Group
@@ -55,18 +55,18 @@ const SearchDonors = () => {
         </div>
         <button
           onClick={handleSearch}
-          className="btn btn-outline btn-wide my-4"
+          className="btn btn-primary btn-wide my-4 text-white"
         >
           Search
         </button>
       </div>
 
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {donationData?.map((data) => (
           <div key={data._id}>
-            <a className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Blood Group : <span className="text-red-700">{data.bloodGroup}</span>
+            <a className="brand-panel block max-w-sm p-6 hover:border-pink-300">
+              <h5 className="mb-2 text-2xl font-bold tracking-normal text-slate-900">
+                Blood Group : <span className="text-pink-600">{data.bloodGroup}</span>
               </h5>
               <p>Requester Name: {data.requesterName}</p>
               <p>Address: {data.district},{data.upazila}</p>

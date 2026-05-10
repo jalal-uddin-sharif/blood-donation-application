@@ -3,6 +3,7 @@ import useAxiosSecure from "../CustomHooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../components/Loader";
 import { Link } from "react-router-dom";
+import EmptyState from "../components/EmptyState";
 
 const Blogs = () => {
  
@@ -26,47 +27,48 @@ const Blogs = () => {
 
   return (
     <div className="min-h">
-      <section className="mt-12 mx-auto px-4 max-w-screen-xl md:px-8 my-10">
+      <section className="my-10 mx-auto mt-12 max-w-screen-xl px-4 md:px-8">
         <div className="text-center">
-          <h1 className="text-3xl text-gray-800 font-semibold">Blog</h1>
-          <p className="mt-3 text-gray-500">
-            Blogs that are loved by the community. Updated every hour.
+          <h1 className="text-3xl font-black text-slate-950">Stories & Updates</h1>
+          <p className="mt-3 text-slate-500">
+            Guidance, donor stories, and community updates from RedLove.
           </p>
         </div>
-        <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {data?.length === 0 && (
+          <EmptyState title="No published blogs yet" message="Published articles will appear here." />
+        )}
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {data?.map((items, key) => (
             <Link to={`/blog-details/${items._id}`}
-              className="max-w-md mx-auto mt-4 shadow-lg border rounded-md duration-300 hover:shadow-sm my-6"
+              className="brand-panel my-6 mx-auto max-w-md overflow-hidden duration-300 hover:border-pink-300"
               key={key}
             >
-              <a>
                 <img
                   src={items.thumbnail}
                   loading="lazy"
                   alt={items.title}
-                  className="w-full h-48 rounded-t-md"
+                  className="h-48 w-full object-cover"
                 />
-                <div className="flex items-center mt-2 pt-3 ml-4 mr-2">
-                  <div className="flex-none w-10 h-10 rounded-full">
+                <div className="mt-2 flex items-center px-4 pt-3">
+                  <div className="h-10 w-10 flex-none rounded-full">
                     <img
                       src={items.authorLogo}
-                      className="w-full h-full rounded-full"
+                      className="h-full w-full rounded-full object-cover"
                       alt={items.authorName}
                     />
                   </div>
                   <div className="ml-3">
-                    <span className="block text-gray-900">
+                    <span className="block text-sm font-semibold text-slate-900">
                       {items.authorName}
                     </span>
                   </div>
                 </div>
-                <div className="pt-3 ml-4 mr-2 mb-3">
-                  <h3 className="text-xl text-gray-900">{items.title}</h3>
-                  <p className="text-gray-400 text-sm mt-1">
+                <div className="px-4 pb-5 pt-3">
+                  <h3 className="text-xl font-bold text-slate-950">{items.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-500">
                     {getPlainText(items.content).substring(0, 200)}...
                   </p>
                 </div>
-              </a>
             </Link>
           ))}
         </div>

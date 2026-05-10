@@ -8,7 +8,7 @@ const Navitems = ({address, label, icon , onClick}) => {
           to={address}
           end
           className={  ({ isActive }) =>
-            `flex items-center gap-x-2 text-gray-600 p-2 rounded-lg ${isActive ? "text-pink-600" : ""}`
+            `flex items-center gap-x-2 rounded-lg p-2 duration-150 hover:bg-pink-50 hover:text-pink-700 ${isActive ? "bg-pink-50 text-pink-700" : "text-slate-600"}`
           }
         >
         {icon}  {label}

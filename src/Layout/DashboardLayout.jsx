@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 
 const DashboardLayout = () => {
   return (
-    <div>
+    <div className="min-h-screen bg-pink-50/40">
       <div className="relative md:flex">
         {/* Sidebar */}
         <div>
@@ -14,7 +14,7 @@ const DashboardLayout = () => {
         </div>
 
         {/* Dynamic outlet */}
-        <div className="flex-1   px-10 py-10 md:ml-[319px]">
+        <div className="flex-1 px-4 py-6 sm:px-8 md:ml-[319px] md:px-10 md:py-10">
           <Outlet/>
         </div>
       </div>

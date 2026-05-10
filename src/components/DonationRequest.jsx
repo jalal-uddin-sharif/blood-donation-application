@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import useDbUser from "../CustomHooks/useDbUser";
 import useAxiosSecure from "../CustomHooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import EmptyState from "./EmptyState";
 
 const DonationRequest = ({ data, refetch, volunteer, viewAll }) => {
   const [User] = useDbUser();
@@ -59,19 +60,34 @@ const DonationRequest = ({ data, refetch, volunteer, viewAll }) => {
 
   const offset = currentPage * itemsPerPage;
   const currentData = data?.slice(offset, offset + itemsPerPage);
-  const pageCount = Math?.ceil(data?.length / itemsPerPage);
+  const pageCount = Math.ceil((data?.length || 0) / itemsPerPage);
+
+  const statusClass = {
+    pending: "badge-warning",
+    inprogress: "badge-info",
+    done: "badge-success",
+    cancel: "badge-error",
+  };
 
   return (
     <div>
       {data?.length === 0 && (
-        <div className="min-h flex justify-center items-center">
-          <h1 className="text-center text-3xl font-bold">No data Found</h1>
-        </div>
+        <EmptyState
+          title="No donation requests yet"
+          message="Create a request or check again later when new requests are available."
+          actionLabel={User?.Role === "Donor" ? "Create request" : undefined}
+          actionTo={User?.Role === "Donor" ? "/dashboard/create-donation-requests" : undefined}
+        />
       )}
       {data?.length > 0 && (
-        <div className="overflow-x-auto">
-          <table className="table border">
-            <thead>
+        <div className="brand-panel overflow-hidden">
+          <div className="border-b border-pink-100 px-5 py-4">
+            <h2 className="text-lg font-black text-slate-950">Donation Requests</h2>
+            <p className="text-sm text-slate-500">{data.length} request{data.length > 1 ? "s" : ""} found</p>
+          </div>
+          <div className="overflow-x-auto">
+          <table className="table">
+            <thead className="bg-pink-50 text-slate-700">
               <tr>
                 <th></th>
                 <th>Recipient Name</th>
@@ -94,7 +110,11 @@ const DonationRequest = ({ data, refetch, volunteer, viewAll }) => {
                   </td>
                   <td>{data.donationDates}</td>
                   <td>{data.donationTimes}</td>
-                  <td>{data.donationStatus}</td>
+                  <td>
+                    <span className={`badge ${statusClass[data.donationStatus] || "badge-ghost"} badge-sm font-semibold`}>
+                      {data.donationStatus}
+                    </span>
+                  </td>
                   {data.donationStatus === "inprogress" ? (
                     <td>
                       <div>
@@ -110,7 +130,7 @@ const DonationRequest = ({ data, refetch, volunteer, viewAll }) => {
                       <select
                         onChange={(e) => handleStatus(data._id, e.target.value)}
                         defaultValue={data.donationStatus}
-                        className="select select-sm bg-gray-100 w-full max-w-xs focus:outline-none"
+                        className="select select-primary select-sm w-full max-w-xs bg-white focus:outline-none"
                       >
                         <option value={"inprogress"}>Inprogress</option>
                         <option value={"pending"}>Pending</option>
@@ -129,7 +149,7 @@ const DonationRequest = ({ data, refetch, volunteer, viewAll }) => {
                               onClick={() =>
                                 handleStatusbyUser(data._id, "done")
                               }
-                              className="p-1 bg-gray-100 rounded-md hover:bg-gray-300"
+                              className="rounded-md bg-pink-50 p-1 text-blue-600 hover:bg-pink-100"
                             >
                               <IoMdCheckmarkCircleOutline
                                 size={20}
@@ -140,7 +160,7 @@ const DonationRequest = ({ data, refetch, volunteer, viewAll }) => {
                               onClick={() =>
                                 handleStatusbyUser(data._id, "cancel")
                               }
-                              className="p-1 bg-gray-100 rounded-md hover:bg-gray-300"
+                              className="rounded-md bg-pink-50 p-1 text-red-600 hover:bg-pink-100"
                             >
                               <ImCancelCircle size={20} color="red" />
                             </button>
@@ -152,7 +172,7 @@ const DonationRequest = ({ data, refetch, volunteer, viewAll }) => {
                             >
                               <button
                                 title="Edit"
-                                className="p-1 bg-gray-100 rounded-md hover:bg-gray-300"
+                                className="rounded-md bg-pink-50 p-1 text-emerald-600 hover:bg-pink-100"
                               >
                                 <CiEdit size={20} color="green" />
                               </button>
@@ -160,7 +180,7 @@ const DonationRequest = ({ data, refetch, volunteer, viewAll }) => {
                             <button
                               onClick={() => handleDelete(data._id)}
                               title="delete"
-                              className="p-1 bg-gray-100 rounded-md hover:bg-gray-300"
+                              className="rounded-md bg-pink-50 p-1 text-red-600 hover:bg-pink-100"
                             >
                               <MdDelete size={20} color="red" />
                             </button>
@@ -168,7 +188,7 @@ const DonationRequest = ({ data, refetch, volunteer, viewAll }) => {
                               {" "}
                               <button
                                 title="view"
-                                className="p-1 bg-gray-100 rounded-md hover:bg-gray-300"
+                                className="rounded-md bg-pink-50 p-1 text-slate-700 hover:bg-pink-100"
                               >
                                 <IoMdEye size={20} color="black" />
                               </button>
@@ -183,17 +203,18 @@ const DonationRequest = ({ data, refetch, volunteer, viewAll }) => {
             </tbody>
           </table>
 
+          </div>
           <ReactPaginate
             previousLabel={"Previous"}
             nextLabel={"Next"}
             pageCount={pageCount}
             onPageChange={handlePageClick}
-            containerClassName={"flex justify-center mt-5"}
+            containerClassName={"flex justify-center gap-1 p-5"}
             pageClassName={"mx-1"}
-            pageLinkClassName={"px-3 py-1 border rounded-md text-blue-600 hover:bg-blue-100"}
-            previousLinkClassName={"px-3 py-1 border rounded-md text-blue-600 hover:bg-blue-100"}
-            nextLinkClassName={"px-3 py-1 border rounded-md text-blue-600 hover:bg-blue-100"}
-            activeLinkClassName={"bg-blue-600 text-white"}
+            pageLinkClassName={"px-3 py-1 border border-pink-100 rounded-md text-pink-700 hover:bg-pink-50"}
+            previousLinkClassName={"px-3 py-1 border border-pink-100 rounded-md text-pink-700 hover:bg-pink-50"}
+            nextLinkClassName={"px-3 py-1 border border-pink-100 rounded-md text-pink-700 hover:bg-pink-50"}
+            activeLinkClassName={"bg-pink-600 text-white"}
             disabledLinkClassName={"text-gray-400 cursor-not-allowed"}
           />
 
@@ -201,7 +222,7 @@ const DonationRequest = ({ data, refetch, volunteer, viewAll }) => {
             <div className="flex justify-end mt-10">
               <Link
                 to={"/dashboard/my-donation-requests"}
-                className="btn btn-secondary"
+                className="btn btn-primary text-white"
               >
                 View my all requests
               </Link>

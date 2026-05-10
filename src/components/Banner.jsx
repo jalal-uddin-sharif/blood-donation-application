@@ -3,42 +3,40 @@ import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
-    <div className="relative flex flex-col items-center  lg:flex-row-reverse my-10">
-      {/* Image Column */}
-      <div className="w-full h-64 lg:w-1/2 lg:h-auto">
+    <div className="relative my-10 overflow-hidden rounded-lg border border-pink-100 bg-white shadow-sm shadow-pink-100 lg:min-h-[430px]">
+      <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
+      <div className="order-2 h-72 lg:order-2 lg:h-auto">
         <img
           className="h-full w-full object-cover"
           src="https://etimg.etb2bimg.com/photo/101351521.cms"
-          alt="Winding mountain road"
+          alt="Blood donation volunteers"
         />
       </div>
-      {/* Close Image Column */}
 
-      {/* Text Column */}
-      <div className="max-w-lg bg-white md:max-w-2xl md:z-10 md:shadow-lg md:absolute md:top-0 md:mt-48 lg:w-3/5 lg:left-0 lg:mt-20 lg:ml-20 xl:mt-24 xl:ml-12">
-        {/* Text Wrapper */}
-        <div className="flex flex-col p-12 md:px-16">
-          <h2 className="text-2xl font-medium uppercase text-green-800 lg:text-4xl">
+      <div className="order-1 flex items-center bg-gradient-to-br from-white via-pink-50 to-white">
+        <div className="flex flex-col p-8 sm:p-10 lg:p-12">
+          <span className="mb-4 w-fit rounded-full bg-pink-100 px-3 py-1 text-sm font-semibold text-pink-700">
+            Donate blood. Find donors. Move fast.
+          </span>
+          <h2 className="text-3xl font-black uppercase leading-tight text-slate-950 sm:text-4xl lg:text-5xl">
             Be the Hero: Donate Blood, Save Lives
           </h2>
-          <p className="mt-4">
+          <p className="mt-4 max-w-xl text-base leading-7 text-slate-600">
             Every drop counts. Sign up to be a blood donor and make a
             life-changing difference for someone in need. Find a drive near you,
             learn about eligibility, and join our community of heroes today.
           </p>
-          {/* Button Container */}
-          <div className="mt-8 flex gap-3">
+          <div className="mt-8 flex flex-wrap gap-3">
             <Link to={"/register"}>
-            <button className="btn btn-outline">Join as donor</button>
+            <button className="btn btn-outline border-pink-300 text-pink-700 hover:border-pink-600 hover:bg-pink-600 hover:text-white">Join as donor</button>
             </Link>
             <Link to={'/search-donors'}>
-            <button className="btn btn-primary">Search  Donors</button>
+            <button className="btn btn-primary text-white">Search Donors</button>
             </Link>
           </div>
         </div>
-        {/* Close Text Wrapper */}
       </div>
-      {/* Close Text Column */}
+      </div>
     </div>
   );
 };

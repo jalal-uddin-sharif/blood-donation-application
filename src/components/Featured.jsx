@@ -43,13 +43,13 @@ const Featured = () => {
     ]
 
     return (
-        <section className="py-14 bg-gray-100 my-10">
-        <div className="max-w-screen-xl mx-auto px-4 text-gray-800 md:px-8">
+        <section className="brand-section my-10 px-4 py-14 md:px-8">
+        <div className="mx-auto max-w-screen-xl text-slate-800">
             <div className="max-w-xl space-y-3">
-                <h3 className="text-3xl font-semibold sm:text-4xl">
+                <h3 className="text-3xl font-black sm:text-4xl">
                     Help Save Lives with Blood Donation
                 </h3>
-                <p>
+                <p className="text-slate-600">
                     Every donation counts. Join us in our mission to provide life-saving blood to those in need.
                 </p>
             </div>
@@ -57,18 +57,18 @@ const Featured = () => {
                 <ul className="grid gap-y-8 gap-x-12 sm:grid-cols-2 lg:grid-cols-3">
                     {
                         features.map((item, idx) => (
-                            <li key={idx} className="flex gap-x-4">
-                                <div className="flex-none w-12 h-12 bg-indigo-600 text-white rounded-lg flex items-center justify-center">
+                            <li key={idx} className="flex gap-x-4 rounded-lg border border-pink-100 bg-pink-50/50 p-4">
+                                <div className="flex h-12 w-12 flex-none items-center justify-center rounded-lg bg-pink-600 text-white">
                                     {item.icon}
                                 </div>
                                 <div className="space-y-3">
-                                    <h4 className="text-lg text-gray-800 font-semibold">
+                                    <h4 className="text-lg font-semibold text-slate-900">
                                         {item.title}
                                     </h4>
                                     <p>
                                         {item.desc}
                                     </p>
-                                    <a href={item.href} className="text-sm text-indigo-600 duration-150 hover:text-indigo-400 font-medium inline-flex items-center gap-x-1">
+                                    <a href={item.href} className="inline-flex items-center gap-x-1 text-sm font-medium text-pink-700 duration-150 hover:text-pink-500">
                                         Learn more
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
                                             <path fillRule="evenodd" d="M5 10a.75.75 0 01.75-.75h6.638L10.23 7.29a.75.75 0 111.04-1.08l3.5 3.25a.75.75 0 010 1.08l-3.5 3.25a.75.75 0 11-1.04-1.08l2.158-1.96H5.75A.75.75 0 015 10z" clipRule="evenodd" />

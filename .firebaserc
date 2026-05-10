@@ -1,5 +1,7 @@
 {
   "projects": {
     "default": "red-love-donation"
-  }
+  },
+  "targets": {},
+  "etags": {}
 }

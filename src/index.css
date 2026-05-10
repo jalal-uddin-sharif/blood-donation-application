@@ -2,6 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    background: #fff7fb;
+  }
+
+  body {
+    min-height: 100vh;
+    color: #22111a;
+    background:
+      radial-gradient(circle at 12% 0%, rgba(255, 79, 163, 0.16), transparent 28rem),
+      linear-gradient(180deg, #fff7fb 0%, #ffffff 42%, #fff1f7 100%);
+  }
+
+  ::selection {
+    background: #e4007c;
+    color: #ffffff;
+  }
+}
+
+@layer components {
+  .brand-panel {
+    @apply rounded-lg border border-pink-100 bg-white shadow-sm shadow-pink-100;
+  }
+
+  .brand-input {
+    @apply w-full rounded-md border border-pink-100 bg-white px-3 py-2 outline-none transition focus:border-pink-500 focus:ring-2 focus:ring-pink-100;
+  }
+
+  .brand-section {
+    @apply rounded-lg border border-pink-100 bg-white/90 shadow-sm shadow-pink-100;
+  }
+}
 
 .min-h{
     min-height: calc(100vh - 400px);

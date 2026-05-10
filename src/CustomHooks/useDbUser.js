@@ -7,14 +7,15 @@ const useDbUser = () => {
   const { user } = useAuth();
   const email = user?.email;
 
-  const { data: dbUser, refetch} = useQuery({
+  const { data: dbUser, refetch, isLoading, error} = useQuery({
     queryFn: async () => {
       const data = await myAxios(`/get-user/${email}`);
       return data.data;
     },
     queryKey: ["user", user?.email],
+    enabled: !!email,
   });
-  return [dbUser, refetch];
+  return [dbUser, refetch, isLoading, error];
 };
 
 export default useDbUser;

@@ -19,8 +19,9 @@ const MyDonationRequests = () => {
   };
   return (
     <div>
-        <div className="text-center  my-10 text-lg font-medium">
-            <h1>Your All donation request</h1>
+        <div className="my-10 text-center">
+            <h1 className="text-3xl font-black text-slate-950">Your donation requests</h1>
+            <p className="mt-2 text-sm text-slate-500">Track, update, and complete your requests from one place.</p>
         </div>
       <div>
         <DonationRequest data={data} refetch={refetch} />

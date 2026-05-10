@@ -7,7 +7,7 @@ import { TbLockShare } from "react-icons/tb";
 
 const AllUser = () => {
   const myAxios = useAxiosSecure();
-  const { data, refetch } = useQuery({
+  const { data = [], refetch } = useQuery({
     queryFn: () => getAllUser(),
     queryKey: ["users"],
   });
@@ -39,10 +39,14 @@ const AllUser = () => {
   };
   return (
     <div>
-      <div className="max-w-screen-xl mx-auto px-4 md:px-8">
-        <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto">
+      <div className="mx-auto max-w-screen-xl px-4 md:px-8">
+        <div className="mb-6">
+          <h1 className="text-3xl font-black text-slate-950">Users</h1>
+          <p className="mt-2 text-sm text-slate-500">Manage roles, access, and account status.</p>
+        </div>
+        <div className="brand-panel overflow-x-auto">
           <table className="w-full table-auto text-sm text-left">
-            <thead className="bg-gray-50 text-gray-600 font-medium border-b">
+            <thead className="border-b border-pink-100 bg-pink-50 font-medium text-slate-700">
               <tr>
                 <th className="py-3 px-6">User Info</th>
                 <th className="py-3 px-6">Role</th>
@@ -51,31 +55,31 @@ const AllUser = () => {
                 <th className="py-3 px-6">Action</th>
               </tr>
             </thead>
-            <tbody className="text-gray-600 divide-y">
+            <tbody className="divide-y divide-pink-50 text-slate-600">
               {data?.map((item, idx) => (
                 <tr key={idx}>
                   <td className="flex items-center gap-x-3 py-3 px-6 whitespace-nowrap">
                     <img
                       src={item.imageUrl}
-                      className="w-16 h-16 rounded-full"
+                      className="h-14 w-14 rounded-full border-2 border-pink-100 object-cover"
                     />
                     <div>
-                      <span className="block text-gray-700 text-sm font-medium">
+                      <span className="block text-sm font-semibold text-slate-800">
                         {item.Name}
                       </span>
-                      <span className="block text-gray-700 text-xs">
+                      <span className="block text-xs text-slate-500">
                         {item.Email}
                       </span>
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">{item.Role}</td>
-                  <td class="mx-auto max-w-xs space-y-5">
+                  <td className="mx-auto max-w-xs space-y-5">
                     <select
                       defaultValue={"OKK"}
                       onChange={(e) =>
                         handleRole(`${item?.Email}`, e.target.value)
                       }
-                      class="block w-full p-2 focus:outline-none  rounded-md border-transparent bg-gray-100 focus:border-primary-300 focus:bg-white focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50"
+                      className="block w-full rounded-md border border-pink-100 bg-white p-2 focus:border-pink-400 focus:outline-none focus:ring focus:ring-pink-100 disabled:cursor-not-allowed disabled:bg-gray-50"
                     >
                       <option   value={item.Role}>{item.Role}</option>
                       {item.Role === "Donor" || item.Role === "Admin" ? (
@@ -115,8 +119,8 @@ const AllUser = () => {
                   <td
                     className={`px-6 py-4 whitespace-nowrap font-bold ${
                       item.status === "block"
-                        ? "text-red-700"
-                        : "text-green-500"
+                        ? "text-red-600"
+                        : "text-emerald-600"
                     }`}
                   >
                     {item.status}
@@ -125,14 +129,14 @@ const AllUser = () => {
                     {item.status !== "active" ? (
                       <button
                         onClick={() => handleAction(`${item.Email}`, "active")}
-                        className=" font-medium text-green-500 hover:text-green-500 duration-150 hover:bg-gray-50 btn btn-circle"
+                        className="btn btn-circle font-medium text-emerald-600 duration-150 hover:bg-pink-50"
                       >
                         <CiUnlock size={25} />
                       </button>
                     ) : (
                       <button
                         onClick={() => handleAction(`${item.Email}`, "block")}
-                        className="font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 btn btn-circle"
+                        className="btn btn-circle font-medium text-red-600 duration-150 hover:bg-pink-50"
                       >
                         <TbLockShare size={25} />
                       </button>
