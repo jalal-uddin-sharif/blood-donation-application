@@ -107,12 +107,14 @@ const myAxios = useAxiosSecure()
   }
 
   return (
-    <div className="my-10 flex justify-center px-4">
-      <div className="brand-panel w-full max-w-2xl overflow-hidden bg-cover bg-no-repeat">
-        <div>
-          <h1 className="my-6 text-center text-3xl font-black text-slate-950">Register new account</h1>
+    <div className="page-shell flex justify-center">
+      <div className="brand-section w-full max-w-5xl overflow-hidden">
+        <div className="bg-slate-950 px-6 py-8 text-white sm:px-8">
+          <p className="text-sm font-black uppercase text-pink-300">Donor onboarding</p>
+          <h1 className="mt-2 text-3xl font-black">Register new account</h1>
+          <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-300">Create your donor profile with blood group and location so urgent requests can find you faster.</p>
         </div>
-        <form className="space-y-3 p-8" onSubmit={handleSubmit(onSubmit)}>
+        <form className="grid gap-5 p-6 sm:p-8 lg:grid-cols-2" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label>Your Name</label>
             <input
@@ -158,7 +160,7 @@ const myAxios = useAxiosSecure()
 
           <div className="w-full">
             <label htmlFor="">Blood Group</label>
-            <select onChange={handleBloodGroup} required className="select select-primary w-full bg-white text-pink-600 focus:outline-none">
+            <select onChange={handleBloodGroup} required className="select select-bordered w-full rounded-xl border-rose-100 bg-white text-slate-700 focus:outline-none">
               <option disabled selected>
                 Select Blood Group
               </option>
@@ -179,6 +181,7 @@ const myAxios = useAxiosSecure()
             )
           }
           </div>
+          <div className="lg:col-span-2">
           <DistrictUpazila setDistrict={setDistrict} setUpazila={setUpazila} district={district} />
           {
             error && (
@@ -187,6 +190,7 @@ const myAxios = useAxiosSecure()
               </p>
             )
           }
+          </div>
           <div>
             <label>Password</label>
             <input type="password"
@@ -223,12 +227,13 @@ const myAxios = useAxiosSecure()
             }
           </div>
 
-          <button className="btn btn-primary w-full text-white" type="submit">{
+          <div className="lg:col-span-2">
+          <button className="action-button w-full" type="submit">{
             !spinner ? "Submit" : "Please wait"
           }<span className={!spinner ? "hidden" : "animate-spin"}><ImSpinner9 /></span> </button>
-          <p className="text-sm text-slate-600">Already have an account? <Link className="font-semibold text-pink-600" to={"/login"}>Login</Link></p>
+          <p className="mt-4 text-sm text-slate-600">Already have an account? <Link className="font-semibold text-pink-600" to={"/login"}>Login</Link></p>
+          </div>
         </form>
-        <div className="h-3 bg-gradient-to-r from-pink-500 via-fuchsia-500 to-rose-500" />
       </div>
     </div>
   );

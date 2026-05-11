@@ -52,24 +52,22 @@ const [User] = useDbUser()
     refetch()
   }
   return (
-    <div>
-      <div className="w-full flex justify-end">
+    <div className="page-shell">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="section-kicker">Content management</p>
+          <h1 className="section-title mt-2">Blog library</h1>
+          <p className="section-copy">Create, review, publish, draft, and remove educational blog content.</p>
+        </div>
         <Link
           to={"/dashboard/content-management/add-blog"}
-          className="btn btn-primary btn-wide"
+          className="action-button w-fit"
         >
           Add blog
         </Link>
       </div>
-      <section className="mt-12 mx-auto px-4 max-w md:px-8">
-        <div className="text-center">
-          <h1 className="text-3xl text-gray-800 font-semibold">Blog</h1>
-          <p className="mt-3 text-gray-500">
-            Blogs that are loved by the community. Updated every hour.
-          </p>
-        </div>
         <div>
-        <select onChange={handlefilter} className="select select-info w-full max-w-xs mt-6">
+        <select onChange={handlefilter} className="select select-bordered mt-8 w-full max-w-xs rounded-xl border-rose-100 bg-white">
           <option disabled selected>
             Filter by
           </option>
@@ -78,11 +76,11 @@ const [User] = useDbUser()
           <option value={"draft"}>Draft</option>
         </select>
         </div>
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 ">
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-4 ">
           {blogs?.map((items, key) => (
             <article
-              className={`max-w-md mx-auto mt-4 shadow-lg border  p-2 rounded-md duration-300 hover:shadow-sm ${
-                items.status === "draft" ? "bg-red-300" : "bg-gray-100"
+              className={`metric-card overflow-hidden p-0 ${
+                items.status === "draft" ? "bg-red-50" : "bg-white"
               }`}
               key={key}
             >
@@ -91,7 +89,7 @@ const [User] = useDbUser()
                   src={items.thumbnail}
                   loading="lazy"
                   alt={items.title}
-                  className="w-full h-48 rounded-t-md"
+                  className="h-48 w-full object-cover"
                 />
                 <div className="flex items-center mt-2 pt-3 ml-4 mr-2">
                   <div className="flex-none w-10 h-10 rounded-full">
@@ -102,23 +100,23 @@ const [User] = useDbUser()
                     />
                   </div>
                   <div className="ml-3">
-                    <span className="block text-gray-900">
+                    <span className="block font-bold text-gray-900">
                       {items.authorName}
                     </span>
-                    <span className="block text-gray-400 text-sm">
+                    <span className="block text-sm text-gray-400">
                       {items.date}
                     </span>
                   </div>
                 </div>
                 <div className="pt-3 ml-4 mr-2 mb-3">
-                  <h3 className="text-xl text-gray-900">{items.title}</h3>
+                  <h3 className="text-xl font-black text-gray-900">{items.title}</h3>
                   <p className="text-gray-400 text-sm mt-1">
                     {getPlainText(items.content).substring(0, 200)}...
                   </p>
                 </div>
                 
-                  <div className="px-4 flex items-center  justify-between">
-                  <h1>Blog Status: {items.status} </h1>
+                  <div className="flex items-center justify-between px-4 pb-4">
+                  <h1 className="status-pill bg-pink-100 text-pink-700">{items.status} </h1>
 {
                   User?.Role === "Admin" && 
                   <div className="flex gap-1">
@@ -149,7 +147,6 @@ const [User] = useDbUser()
             </article>
           ))}
         </div>
-      </section>
     </div>
   );
 };

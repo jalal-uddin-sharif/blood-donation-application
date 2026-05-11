@@ -47,14 +47,18 @@ const CreateBlog = () => {
   };
 
   return (
-    <div>
-      <h2>Add Blog</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="page-shell">
+      <div className="mb-6">
+        <p className="section-kicker">Content management</p>
+        <h1 className="section-title mt-2">Add blog</h1>
+        <p className="section-copy">Create educational content for donors and publish it after admin review.</p>
+      </div>
+      <form className="form-card" onSubmit={handleSubmit}>
         <div className="flex flex-col ">
           <label>Title:</label>
           <input
             required
-            className="bg-gray-100 px-3 py-2 w-full  outline-none"
+            className="brand-input"
             type="text"
             onChange={handleTitleChange}
           />
@@ -67,7 +71,7 @@ const CreateBlog = () => {
             onChange={handleThumbnailChange}
             type="file"
             accept="image/*"
-            className="file-input file-input-bordered file-input-primary w-full max-w-xs"
+            className="file-input file-input-bordered file-input-primary w-full rounded-xl"
           />
         </div>
 
@@ -81,7 +85,7 @@ const CreateBlog = () => {
           />
         </div>
         <button
-          className="btn my-8 btn-wide bg-pink-800 text-yellow-300 text-lg tracking-widest hover:bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 "
+          className="action-button my-8 w-full sm:w-auto"
           type="submit"
         >
           Create

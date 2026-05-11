@@ -27,20 +27,21 @@ const Blogs = () => {
 
   return (
     <div className="min-h">
-      <section className="my-10 mx-auto mt-12 max-w-screen-xl px-4 md:px-8">
-        <div className="text-center">
-          <h1 className="text-3xl font-black text-slate-950">Stories & Updates</h1>
-          <p className="mt-3 text-slate-500">
+      <section className="page-shell">
+        <div>
+          <p className="section-kicker">Resource center</p>
+          <h1 className="section-title mt-2">Stories & Updates</h1>
+          <p className="section-copy">
             Guidance, donor stories, and community updates from RedLove.
           </p>
         </div>
         {data?.length === 0 && (
           <EmptyState title="No published blogs yet" message="Published articles will appear here." />
         )}
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {data?.map((items, key) => (
             <Link to={`/blog-details/${items._id}`}
-              className="brand-panel my-6 mx-auto max-w-md overflow-hidden duration-300 hover:border-pink-300"
+              className="metric-card overflow-hidden p-0 duration-300 hover:border-pink-300"
               key={key}
             >
                 <img

@@ -1,29 +1,28 @@
+import { Link } from "react-router-dom";
+import { FiPlusCircle } from "react-icons/fi";
 
+const WelcomeSection = ({ User }) => {
+  const message = {
+    Donor: "Thank you for staying available when someone needs blood urgently.",
+    Volunteer: "Review requests, support content, and keep the donation flow moving.",
+    Admin: "Manage requests, donors, volunteers, users, and published resources.",
+  };
 
-
-const WelcomeSection = ({User}) => {
-
-
- 
   return (
-    <div>
-      <div className=" text-center  space-y-1">
-        <h1 className="text-2xl font-medium">
-          Welcome back, <span className="text-green-700">{User?.Name}</span>
+    <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+      <div>
+        <p className="section-kicker">Dashboard</p>
+        <h1 className="mt-2 text-3xl font-black text-slate-950 sm:text-4xl">
+          Welcome back, <span className="text-pink-700">{User?.Name}</span>
         </h1>
-        {
-          User?.Role === "Donor" &&
-        <h2 className="text-lg font-medium">Thank you for your commitment to saving lives.</h2>
-        }
-        {
-          User?.Role === "Volunteer" &&
-        <h2>We appreciate your dedication to supporting blood donation efforts.</h2>
-        }
-        {
-          User?.Role === "Admin" &&
-        <h2  className="text-lg "> You can manage blood requests, donors, and volunteers here.</h2>
-        }
+        <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">
+          {message[User?.Role] || "Monitor the RedLove blood donation workflow from one place."}
+        </p>
       </div>
+      <Link to="/dashboard/create-donation-requests" className="action-button gap-2">
+        <FiPlusCircle />
+        New request
+      </Link>
     </div>
   );
 };

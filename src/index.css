@@ -4,34 +4,101 @@
 
 @layer base {
   html {
-    background: #fff7fb;
+    background: #fff8fb;
+    scroll-behavior: smooth;
   }
 
   body {
     min-height: 100vh;
     color: #22111a;
     background:
-      radial-gradient(circle at 12% 0%, rgba(255, 79, 163, 0.16), transparent 28rem),
-      linear-gradient(180deg, #fff7fb 0%, #ffffff 42%, #fff1f7 100%);
+      linear-gradient(135deg, rgba(228, 0, 124, 0.08) 0%, transparent 32%),
+      linear-gradient(180deg, #fff8fb 0%, #ffffff 38%, #fff3f8 100%);
+    font-synthesis: none;
   }
 
   ::selection {
     background: #e4007c;
     color: #ffffff;
   }
+
+  label {
+    @apply mb-1 block text-sm font-semibold text-slate-700;
+  }
 }
 
 @layer components {
+  .app-container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .page-shell {
+    @apply py-8 sm:py-10 lg:py-12;
+  }
+
   .brand-panel {
-    @apply rounded-lg border border-pink-100 bg-white shadow-sm shadow-pink-100;
+    @apply rounded-2xl border border-rose-100 bg-white shadow-sm shadow-rose-100/70;
   }
 
   .brand-input {
-    @apply w-full rounded-md border border-pink-100 bg-white px-3 py-2 outline-none transition focus:border-pink-500 focus:ring-2 focus:ring-pink-100;
+    @apply w-full rounded-xl border border-rose-100 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-pink-500 focus:ring-4 focus:ring-pink-100;
   }
 
   .brand-section {
-    @apply rounded-lg border border-pink-100 bg-white/90 shadow-sm shadow-pink-100;
+    @apply rounded-3xl border border-rose-100 bg-white/95 shadow-sm shadow-rose-100/70;
+  }
+
+  .section-kicker {
+    @apply text-sm font-black uppercase tracking-normal text-pink-600;
+  }
+
+  .section-title {
+    @apply text-3xl font-black leading-tight text-slate-950 sm:text-4xl;
+  }
+
+  .section-copy {
+    @apply mt-3 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base;
+  }
+
+  .glass-nav {
+    @apply border border-white/70 bg-white/90 shadow-lg shadow-rose-100/70 backdrop-blur-xl;
+  }
+
+  .metric-card {
+    @apply rounded-2xl border border-rose-100 bg-white p-5 shadow-sm shadow-rose-100/70 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-rose-100;
+  }
+
+  .action-button {
+    @apply inline-flex items-center justify-center rounded-xl bg-pink-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-pink-200 transition hover:bg-pink-700;
+  }
+
+  .soft-button {
+    @apply inline-flex items-center justify-center rounded-xl border border-rose-200 bg-white px-5 py-3 text-sm font-bold text-pink-700 transition hover:border-pink-400 hover:bg-pink-50;
+  }
+
+  .data-table {
+    @apply w-full min-w-[820px] table-auto text-left text-sm;
+  }
+
+  .data-table thead {
+    @apply border-b border-rose-100 bg-rose-50/80 text-xs uppercase text-slate-600;
+  }
+
+  .data-table th,
+  .data-table td {
+    @apply px-5 py-4 align-middle;
+  }
+
+  .data-table tbody {
+    @apply divide-y divide-rose-50 text-slate-700;
+  }
+
+  .status-pill {
+    @apply inline-flex rounded-full px-3 py-1 text-xs font-bold capitalize;
+  }
+
+  .form-card {
+    @apply brand-panel mx-auto w-full max-w-5xl p-5 sm:p-7 lg:p-8;
   }
 }
 

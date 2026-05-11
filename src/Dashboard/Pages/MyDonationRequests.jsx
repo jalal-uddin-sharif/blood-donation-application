@@ -18,10 +18,11 @@ const MyDonationRequests = () => {
     return data;
   };
   return (
-    <div>
-        <div className="my-10 text-center">
-            <h1 className="text-3xl font-black text-slate-950">Your donation requests</h1>
-            <p className="mt-2 text-sm text-slate-500">Track, update, and complete your requests from one place.</p>
+    <div className="page-shell">
+        <div className="mb-6">
+            <p className="section-kicker">Donor dashboard</p>
+            <h1 className="section-title mt-2">Your donation requests</h1>
+            <p className="section-copy">Track, update, and complete your requests from one place.</p>
         </div>
       <div>
         <DonationRequest data={data} refetch={refetch} />

@@ -63,10 +63,10 @@ const DonationRequest = ({ data, refetch, volunteer, viewAll }) => {
   const pageCount = Math.ceil((data?.length || 0) / itemsPerPage);
 
   const statusClass = {
-    pending: "badge-warning",
-    inprogress: "badge-info",
-    done: "badge-success",
-    cancel: "badge-error",
+    pending: "bg-amber-100 text-amber-700",
+    inprogress: "bg-blue-100 text-blue-700",
+    done: "bg-emerald-100 text-emerald-700",
+    cancel: "bg-red-100 text-red-700",
   };
 
   return (
@@ -81,15 +81,25 @@ const DonationRequest = ({ data, refetch, volunteer, viewAll }) => {
       )}
       {data?.length > 0 && (
         <div className="brand-panel overflow-hidden">
-          <div className="border-b border-pink-100 px-5 py-4">
+          <div className="flex flex-col gap-3 border-b border-rose-100 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
             <h2 className="text-lg font-black text-slate-950">Donation Requests</h2>
             <p className="text-sm text-slate-500">{data.length} request{data.length > 1 ? "s" : ""} found</p>
+            </div>
+            {viewAll && (
+              <Link
+                to={"/dashboard/my-donation-requests"}
+                className="soft-button px-4 py-2"
+              >
+                View all
+              </Link>
+            )}
           </div>
           <div className="overflow-x-auto">
-          <table className="table">
-            <thead className="bg-pink-50 text-slate-700">
+          <table className="data-table">
+            <thead>
               <tr>
-                <th></th>
+                <th>#</th>
                 <th>Recipient Name</th>
                 <th>Location</th>
                 <th>Donation Date</th>
@@ -111,7 +121,7 @@ const DonationRequest = ({ data, refetch, volunteer, viewAll }) => {
                   <td>{data.donationDates}</td>
                   <td>{data.donationTimes}</td>
                   <td>
-                    <span className={`badge ${statusClass[data.donationStatus] || "badge-ghost"} badge-sm font-semibold`}>
+                    <span className={`status-pill ${statusClass[data.donationStatus] || "bg-slate-100 text-slate-700"}`}>
                       {data.donationStatus}
                     </span>
                   </td>
@@ -130,7 +140,7 @@ const DonationRequest = ({ data, refetch, volunteer, viewAll }) => {
                       <select
                         onChange={(e) => handleStatus(data._id, e.target.value)}
                         defaultValue={data.donationStatus}
-                        className="select select-primary select-sm w-full max-w-xs bg-white focus:outline-none"
+                        className="select select-bordered select-sm w-full max-w-xs rounded-xl border-rose-100 bg-white focus:outline-none"
                       >
                         <option value={"inprogress"}>Inprogress</option>
                         <option value={"pending"}>Pending</option>
@@ -172,25 +182,25 @@ const DonationRequest = ({ data, refetch, volunteer, viewAll }) => {
                             >
                               <button
                                 title="Edit"
-                                className="rounded-md bg-pink-50 p-1 text-emerald-600 hover:bg-pink-100"
+                                className="rounded-xl bg-emerald-50 p-2 text-emerald-600 hover:bg-emerald-100"
                               >
-                                <CiEdit size={20} color="green" />
+                                <CiEdit size={20} />
                               </button>
                             </Link>
                             <button
                               onClick={() => handleDelete(data._id)}
                               title="delete"
-                              className="rounded-md bg-pink-50 p-1 text-red-600 hover:bg-pink-100"
+                              className="rounded-xl bg-red-50 p-2 text-red-600 hover:bg-red-100"
                             >
-                              <MdDelete size={20} color="red" />
+                              <MdDelete size={20} />
                             </button>
                             <Link to={`/view-details/${data._id}`}>
                               {" "}
                               <button
                                 title="view"
-                                className="rounded-md bg-pink-50 p-1 text-slate-700 hover:bg-pink-100"
+                                className="rounded-xl bg-slate-100 p-2 text-slate-700 hover:bg-slate-200"
                               >
-                                <IoMdEye size={20} color="black" />
+                                <IoMdEye size={20} />
                               </button>
                             </Link>
                           </>
@@ -209,25 +219,14 @@ const DonationRequest = ({ data, refetch, volunteer, viewAll }) => {
             nextLabel={"Next"}
             pageCount={pageCount}
             onPageChange={handlePageClick}
-            containerClassName={"flex justify-center gap-1 p-5"}
+            containerClassName={"flex flex-wrap justify-center gap-2 p-5"}
             pageClassName={"mx-1"}
-            pageLinkClassName={"px-3 py-1 border border-pink-100 rounded-md text-pink-700 hover:bg-pink-50"}
-            previousLinkClassName={"px-3 py-1 border border-pink-100 rounded-md text-pink-700 hover:bg-pink-50"}
-            nextLinkClassName={"px-3 py-1 border border-pink-100 rounded-md text-pink-700 hover:bg-pink-50"}
-            activeLinkClassName={"bg-pink-600 text-white"}
+            pageLinkClassName={"px-3 py-2 border border-rose-100 rounded-xl text-pink-700 hover:bg-pink-50"}
+            previousLinkClassName={"px-3 py-2 border border-rose-100 rounded-xl text-pink-700 hover:bg-pink-50"}
+            nextLinkClassName={"px-3 py-2 border border-rose-100 rounded-xl text-pink-700 hover:bg-pink-50"}
+            activeLinkClassName={"!bg-pink-600 !text-white"}
             disabledLinkClassName={"text-gray-400 cursor-not-allowed"}
           />
-
-          {viewAll && (
-            <div className="flex justify-end mt-10">
-              <Link
-                to={"/dashboard/my-donation-requests"}
-                className="btn btn-primary text-white"
-              >
-                View my all requests
-              </Link>
-            </div>
-          )}
         </div>
       )}
     </div>

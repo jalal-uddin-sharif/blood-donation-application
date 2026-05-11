@@ -1,9 +1,13 @@
 import axios from 'axios';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
+if (!apiUrl) {
+    throw new Error('VITE_API_URL is missing. Add it to client/.env');
+}
+
 const axiosSecure = axios.create({
-    baseURL:
-        import.meta.env.VITE_API_URL ||
-        'https://blood-donation-server-pria.onrender.com',
+    baseURL: apiUrl,
  
 })
 

@@ -100,27 +100,29 @@ setError("")
 
 
   return (
-    <div className="bg-gray-100 rounded-md flex flex-col justify-center items-center">
-      <div className="text-center text-green-500 font-bold py-10 text-3xl">
-        <h1>Create new donation request</h1>
+    <div className="page-shell">
+      <div className="mb-6">
+        <p className="section-kicker">Donation workflow</p>
+        <h1 className="section-title mt-2">Create new donation request</h1>
+        <p className="section-copy">Add recipient, location, hospital, schedule, and message details for the request board.</p>
       </div>
-      <form className=" w-4/5" onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-8">
-          <h1 className="text-lg font-medium ">
+      <form className="form-card" onSubmit={handleSubmit(onSubmit)}>
+        <div className="mb-8 grid gap-3 rounded-2xl bg-rose-50 p-4 sm:grid-cols-2">
+          <h2 className="text-sm font-bold text-slate-700">
             Requester name:{" "}
             <span className="text-pink-600"> {user?.displayName} </span>
-          </h1>
-          <h1 className="text-lg font-medium ">
+          </h2>
+          <h2 className="text-sm font-bold text-slate-700">
             Requester email:{" "}
             <span className="text-pink-600"> {user?.email} </span>
-          </h1>
+          </h2>
         </div>
 
-        <div className="flex gap-5">
+        <div className="grid gap-5 md:grid-cols-2">
           <div className="w-full">
             <label>Recipient Name</label>
             <input
-              className="outline-none rounded-md mb-2 p-3 w-full"
+              className="brand-input mb-2"
               placeholder="Recipient Name"
               name="recipientName"
               {...register("recipientName", { required: true })}
@@ -137,7 +139,7 @@ setError("")
             <select
               onChange={handleBloodGroup}
               required
-              className="select select-info select- w-full focus:outline-none bg-gray-50 text-red-500 text-xl"
+              className="select select-bordered w-full rounded-xl border-rose-100 bg-white text-slate-700 focus:outline-none"
             >
               <option disabled selected>
                 Select Blood Group
@@ -159,7 +161,7 @@ setError("")
           </div>
         </div>
 
-        <div>
+        <div className="mt-5">
           <DistrictUpazila
             setDistrict={setDistrict}
             setUpazila={setUpazila}
@@ -175,7 +177,7 @@ setError("")
         <div>
           <label>Hospital Name</label>
           <input
-            className="outline-none rounded-md mb-2 p-3 w-full"
+            className="brand-input mb-2"
             placeholder="Hospital Name"
             name="HospitalName"
             {...register("hospital", { required: true })}
@@ -190,7 +192,7 @@ setError("")
         <div>
           <label>Full Address</label>
           <input
-            className="outline-none rounded-md mb-2 p-3 w-full"
+            className="brand-input mb-2"
             placeholder="ex- chittagong,rangunia, padua-rajarhat"
             name="address"
             {...register("address", { required: true })}
@@ -214,7 +216,7 @@ setError("")
         <div>
           <label>Message</label>
           <textarea
-            className="outline-none rounded-md mb-2 p-3 w-full textarea textarea-bordered"
+            className="brand-input textarea mb-2 min-h-32"
             placeholder="ex- chittagong,rangunia, padua-rajarhat"
             name="message"
             {...register("message", { required: true })}
@@ -227,7 +229,7 @@ setError("")
           )}
         </div>
 
-        <button className="btn my-4  btn-success btn-wide" type="submit">
+        <button className="action-button my-4 w-full sm:w-auto" type="submit">
           Submit request
         </button>
       </form>

@@ -39,10 +39,10 @@ const Stats = () => {
       },
     ];
   return (
-    <div className="mx-auto my-10 grid max-w-screen-lg gap-5 sm:grid-cols-3">
+    <div className="my-8 grid gap-5 sm:grid-cols-3">
       {cards.map((card) => (
-        <div key={card.label} className="brand-panel px-5 py-6">
-          <div className="grid h-14 w-14 place-items-center rounded-lg bg-pink-100 p-4 text-pink-600">
+        <div key={card.label} className="metric-card">
+          <div className="grid h-14 w-14 place-items-center rounded-2xl bg-pink-600 p-4 text-white shadow-lg shadow-pink-100">
             {card.icon}
           </div>
           <p className="mt-4 text-sm font-semibold text-slate-500">{card.label}</p>

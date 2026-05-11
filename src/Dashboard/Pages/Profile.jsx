@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
+import { FiEdit3, FiMail, FiMapPin, FiSave } from "react-icons/fi";
+import { ImSpinner3 } from "react-icons/im";
+import Swal from "sweetalert2";
 import useDbUser from "../../CustomHooks/useDbUser";
 import DistrictUpazila from "../../components/DistrictUpazila";
 import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
-import { ImSpinner3 } from "react-icons/im";
-
-import Swal from "sweetalert2";
 import { imageUpload } from "../../utils";
 
 const Profile = () => {
@@ -15,194 +15,142 @@ const Profile = () => {
   const [district, setDistrict] = useState(User?.district);
   const [upazila, setUpazila] = useState(User?.upazila);
   const [newName, setNewName] = useState(User?.Name);
-  const [imageUrl,setImageUrl] = useState(User?.imageUrl)
-  // const [newEmail, setNewEmail]= useState(User?.Email)
-  const [refresh, setRefresh] = useState(false)
+  const [imageUrl, setImageUrl] = useState(User?.imageUrl);
+  const [spin, setSpin] = useState(false);
 
-const handleImageUpload = async(e) =>{
-  const image = await imageUpload(e.target.files[0])
-  setImageUrl(image)
-}
-
-  const handleBloodGroup = (e) => {
-    setBloodGroup(e.target.value);
+  const handleImageUpload = async (e) => {
+    const image = await imageUpload(e.target.files[0]);
+    setImageUrl(image);
   };
 
-  const [spin, setSpin] = useState(false);
   const handleUpdateProfile = async () => {
     setSpin(true);
-    const Name = newName;
     const Email = User?.Email;
-    const Role = User?.Role;
-    const status = User?.status;
-
     const updatedUserData = {
-      Name,
+      Name: newName || User?.Name,
       Email,
-      district,
-      upazila,
-      bloodGroup,
-      Role,
-      status, imageUrl
+      district: district || User?.district,
+      upazila: upazila || User?.upazila,
+      bloodGroup: bloodGroup || User?.bloodGroup,
+      Role: User?.Role,
+      status: User?.status,
+      imageUrl: imageUrl || User?.imageUrl,
     };
-    console.log(updatedUserData);
-    const data = await myAxios.put(
-      `/update-user-profile/${Email}`,
-      updatedUserData
-    );
-    console.log(data.data);
-    if (data.data.modifiedCount > 0) {
+
+    try {
+      const data = await myAxios.put(`/update-user-profile/${Email}`, updatedUserData);
       Swal.fire({
         icon: "success",
-        title: "Your profile updated",
+        title: data.data.modifiedCount > 0 ? "Your profile updated" : "Data up to date",
         showConfirmButton: false,
         timer: 1500,
       });
+      setUpdate(false);
+      refetch();
+    } finally {
       setSpin(false);
-      setUpdate(!update);
-      refetch()
-      setRefresh(!refresh)
-    } else {
-      Swal.fire({
-        icon: "success",
-        title: "Data uptodate",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      setSpin(false);
-      setUpdate(!update);
     }
   };
 
-
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100">
-  <div className="w-full sm:w-4/5 md:w-3/5 lg:w-2/3 xl:w-1/2">
-    <div className="text-center">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path
-          fill="#0099ff"
-          fillOpacity="1"
-          d="M0,288L48,245.3C96,203,192,117,288,85.3C384,53,480,75,576,101.3C672,128,768,160,864,154.7C960,149,1056,107,1152,85.3C1248,64,1344,64,1392,64L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
-        ></path>
-      </svg>
-    </div>
-
-    <section className="flex flex-col sm:flex-row px-5 sm:px-10 py-5 sm:pb-10 gap-5 relative bg-white rounded-lg shadow-lg">
-      <div className="flex-shrink-0 w-full sm:w-auto">
-        <div className="avatar">
-          <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-            <img src={User?.imageUrl} alt="User Avatar" />
-          </div>
-        </div>
-        <h1 className="font-medium text-lg">
-          {User?.Name} (
-          <span
-            className={`${User?.Role === "Admin" && "text-green-600"} ${
-              User?.Role === "Donor" && "text-red-700"
-            } ${User?.Role === "Volunteer" && "text-blue-600"}`}
-          >
-            {" "}
-            {User?.Role}
-          </span>{" "}
-          )
-        </h1>
-        <h1 className="font-medium text-sm">{User?.Email}</h1>
+    <section className="page-shell">
+      <div className="mb-6">
+        <p className="section-kicker">Account</p>
+        <h1 className="section-title mt-2">My profile</h1>
+        <p className="section-copy">Keep your donor details accurate so the system can match requests correctly.</p>
       </div>
 
-      <div className="flex-1 bg-gray-50 p-5 rounded-lg">
-        <div>
-          <h1>
-            Address : {User?.district}, {User?.upazila}
-          </h1>
-          <h1>Blood Group : {User?.bloodGroup}</h1>
-        </div>
-        {update && (
-          <div className="mt-2">
-            <div className="flex gap-2">
-              <input
-              defaultValue={User?.Name}
-                onChange={(e) => setNewName(e.target.value)}
-                className="px-3 py-2 w-full rounded-md"
-                type="text"
-                name=""
-                id=""
-                placeholder="New Name"
-              />
-            </div>
-            <div className="w-2/3">
-              <label htmlFor="">Blood Group</label>
-              <select
-                defaultValue={User?.bloodGroup}
-                onChange={handleBloodGroup}
-                required
-                className="select select-info w-full focus:outline-none bg-gray-50 text-red-500 text-xl"
-              >
-                <option value={"A+"}>A+</option>
-                <option value={"A-"}>A-</option>
-                <option value={"B+"}>B+</option>
-                <option value={"B-"}>B-</option>
-                <option value={"AB+"}>AB+</option>
-                <option value={"AB-"}>AB-</option>
-                <option value={"O+"}>O+</option>
-                <option value={"O-"}>O-</option>
-              </select>
-            </div>
-            <div className="my-4">
-              <DistrictUpazila
-                district={district || User?.district}
-                setDistrict={setDistrict}
-                setUpazila={setUpazila}
-                upazila={upazila || User?.upazila}
-                defaultValue={User?.district}
-              />
-            </div>
-            <div className="relative flex w-full max-w-sm flex-col gap-1">
-              <label
-                className="w-fit pl-0.5 text-sm text-slate-700 dark:text-slate-300"
-                htmlFor="fileInput"
-              >
-                Upload Image
-              </label>
-              <input
-                onChange={handleImageUpload}
-                id="fileInput"
-                accept="image/*"
-                type="file"
-                className="w-full overflow-clip rounded-xl border border-slate-300 bg-slate-100/50 text-sm text-slate-700 file:mr-4 file:cursor-pointer file:border-none file:bg-slate-100 file:px-4 file:py-2 file:font-medium file:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 disabled:cursor-not-allowed disabled:opacity-75 dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-300 dark:file:bg-slate-800 dark:file:text-white dark:focus-visible:outline-blue-600"
-              />
+      <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
+        <aside className="brand-section overflow-hidden">
+          <div className="h-28 bg-gradient-to-br from-pink-600 to-rose-500" />
+          <div className="-mt-12 p-6">
+            <img src={imageUrl || User?.imageUrl} alt={User?.Name} className="h-28 w-28 rounded-3xl border-4 border-white object-cover shadow-lg shadow-rose-100" />
+            <h2 className="mt-5 text-2xl font-black text-slate-950">{User?.Name}</h2>
+            <p className="mt-1 flex items-center gap-2 text-sm font-semibold text-slate-500">
+              <FiMail className="text-pink-600" />
+              {User?.Email}
+            </p>
+            <p className="mt-2 flex items-center gap-2 text-sm font-semibold text-slate-500">
+              <FiMapPin className="text-pink-600" />
+              {User?.district}, {User?.upazila}
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <span className="status-pill bg-pink-100 text-pink-700">{User?.Role}</span>
+              <span className="status-pill bg-emerald-100 text-emerald-700">{User?.status}</span>
+              <span className="status-pill bg-slate-100 text-slate-700">{User?.bloodGroup}</span>
             </div>
           </div>
-        )}
-      </div>
+        </aside>
 
-      <div className="w-full sm:w-auto flex-shrink-0 self-end">
-        {!update ? (
-          <button
-            onClick={() => setUpdate(!update)}
-            className="btn btn-primary"
-          >
-            Update Profile
-          </button>
-        ) : (
-          <button
-            onClick={handleUpdateProfile}
-            className="btn btn-primary"
-          >
-            {spin ? (
-              <span className="flex items-center justify-center gap-1">
-                Saving <ImSpinner3 className="animate-spin mt-0.5" />
-              </span>
-            ) : (
-              <span>Save</span>
+        <div className="form-card">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-black text-slate-950">Profile details</h2>
+              <p className="mt-1 text-sm text-slate-500">Review or update your public donor information.</p>
+            </div>
+            {!update && (
+              <button onClick={() => setUpdate(true)} className="soft-button gap-2 px-4 py-2" type="button">
+                <FiEdit3 />
+                Edit
+              </button>
             )}
-          </button>
-        )}
+          </div>
+
+          {!update ? (
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {[
+                ["Name", User?.Name],
+                ["Email", User?.Email],
+                ["Blood Group", User?.bloodGroup],
+                ["District", User?.district],
+                ["Upazila", User?.upazila],
+                ["Role", User?.Role],
+              ].map(([label, value]) => (
+                <div key={label} className="rounded-2xl bg-rose-50 p-4">
+                  <p className="text-xs font-black uppercase text-slate-400">{label}</p>
+                  <p className="mt-1 font-bold text-slate-900">{value}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="mt-6 grid gap-5">
+              <div>
+                <label>Name</label>
+                <input defaultValue={User?.Name} onChange={(e) => setNewName(e.target.value)} className="brand-input" type="text" placeholder="New name" />
+              </div>
+
+              <div>
+                <label>Blood Group</label>
+                <select defaultValue={User?.bloodGroup} onChange={(e) => setBloodGroup(e.target.value)} required className="select select-bordered w-full rounded-xl border-rose-100 bg-white text-slate-700 focus:outline-none">
+                  {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map((group) => (
+                    <option key={group} value={group}>{group}</option>
+                  ))}
+                </select>
+              </div>
+
+              <DistrictUpazila district={district || User?.district} setDistrict={setDistrict} setUpazila={setUpazila} upazila={upazila || User?.upazila} defaultValue={User?.district} />
+
+              <div>
+                <label htmlFor="fileInput">Upload Image</label>
+                <input onChange={handleImageUpload} id="fileInput" accept="image/*" type="file" className="file-input file-input-bordered file-input-primary w-full rounded-xl" />
+              </div>
+
+              <button onClick={handleUpdateProfile} className="action-button gap-2" type="button">
+                {spin ? (
+                  <>
+                    Saving <ImSpinner3 className="animate-spin" />
+                  </>
+                ) : (
+                  <>
+                    <FiSave /> Save profile
+                  </>
+                )}
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </section>
-  </div>
-</div>
-
   );
 };
 

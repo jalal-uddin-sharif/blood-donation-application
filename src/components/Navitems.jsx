@@ -8,10 +8,10 @@ const Navitems = ({address, label, icon , onClick}) => {
           to={address}
           end
           className={  ({ isActive }) =>
-            `flex items-center gap-x-2 rounded-lg p-2 duration-150 hover:bg-pink-50 hover:text-pink-700 ${isActive ? "bg-pink-50 text-pink-700" : "text-slate-600"}`
+            `flex items-center gap-x-3 rounded-xl px-3 py-2.5 text-sm font-bold duration-150 hover:bg-pink-50 hover:text-pink-700 ${isActive ? "bg-pink-600 text-white shadow-lg shadow-pink-100 hover:bg-pink-600 hover:text-white" : "text-slate-600"}`
           }
         >
-        {icon}  {label}
+        <span className="text-lg">{icon}</span>  {label}
         </NavLink>
       </li>
       

@@ -1,24 +1,17 @@
-import React from "react";
 import Sidebar from "../components/Sidebar";
-import WelcomeSection from "../components/WelcomeSection";
 import { Outlet } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 const DashboardLayout = () => {
   return (
-    <div className="min-h-screen bg-pink-50/40">
-      <div className="relative md:flex">
-        {/* Sidebar */}
-        <div>
-            <Sidebar/>
+    <div className="min-h-screen bg-[#fff8fb]">
+      <Sidebar />
+      <main className="min-h-screen px-4 py-5 sm:px-6 lg:ml-80 lg:px-8 lg:py-8">
+        <div className="mx-auto w-full max-w-7xl">
+          <Outlet />
         </div>
-
-        {/* Dynamic outlet */}
-        <div className="flex-1 px-4 py-6 sm:px-8 md:ml-[319px] md:px-10 md:py-10">
-          <Outlet/>
-        </div>
-      </div>
-      <Toaster/>
+      </main>
+      <Toaster />
     </div>
   );
 };

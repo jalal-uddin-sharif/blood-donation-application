@@ -15,7 +15,12 @@ const AllBloodDonation = () => {
         }
     })
     return (
-        <div>
+        <div className="page-shell">
+            <div className="mb-6">
+                <p className="section-kicker">Operations</p>
+                <h1 className="section-title mt-2">All blood donation requests</h1>
+                <p className="section-copy">Review every request and update request status according to the current workflow.</p>
+            </div>
             <DonationRequest data={data} refetch={refetch} volunteer={User?.Role === "Volunteer" ? true : false}/>
         </div>
     );

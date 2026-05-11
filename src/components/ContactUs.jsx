@@ -1,70 +1,45 @@
-import React from 'react';
+import { Link } from "react-router-dom";
+import { FiMail, FiMapPin, FiPhoneCall } from "react-icons/fi";
 
 const ContactUs = () => {
-    const contactMethods = [
-        {
-            icon:
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                </svg>
-            ,
-            contact: "Chittagong, Rangunia.",
-            title: "Our office"
-        },
-        {
-            icon:
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-                </svg>
-            ,
-            contact: "+880 1572223906",
-            title: "Phone"
-        },
-        {
-            icon:
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                </svg>
-            ,
-            contact: "Admin@RedLoveUser.com",
-            title: "Email"
-        },
-    ]
-    return (
-        <main className="py-14">
-        <div className="brand-section mx-auto max-w-screen-xl px-4 py-10 text-slate-600 md:px-8">
-            <div className="max-w-xl space-y-3">
-                <h3 className="font-semibold text-pink-600">
-                    Contact
-                </h3>
-                <p className="text-3xl font-black text-slate-950 sm:text-4xl">
-                    Let us know how we can help
-                </p>
-                <p>
-                    We’re here to help and answer any question you might have, We look forward to hearing from you .
-                </p>
-            </div>
-            <div>
-                <ul className="mt-12 flex flex-wrap gap-x-12 gap-y-6 items-center lg:gap-x-24">
-                    {
-                        contactMethods.map((item, idx) => (
-                            <li key={idx} className="rounded-lg border border-pink-100 bg-pink-50/60 p-4">
-                                <h4 className="text-lg font-semibold text-slate-900">{item.title}</h4>
-                                <div className="mt-3 flex items-center gap-x-3">
-                                    <div className="flex-none text-pink-500">
-                                        {item.icon}
-                                    </div>
-                                    <p>{item.contact}</p>
-                                </div>
-                            </li>
-                        ))
-                    }
-                </ul>
-            </div>
+  const contactMethods = [
+    { icon: <FiMapPin />, contact: "Chittagong, Bangladesh", title: "Coverage" },
+    { icon: <FiPhoneCall />, contact: "+880 1572223906", title: "Hotline" },
+    { icon: <FiMail />, contact: "Admin@RedLoveUser.com", title: "Email" },
+  ];
+
+  return (
+    <section className="py-10 lg:py-14">
+      <div className="brand-section overflow-hidden">
+        <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="bg-slate-950 p-7 text-white sm:p-10">
+            <p className="text-sm font-black uppercase text-pink-300">Contact and support</p>
+            <h2 className="mt-3 text-3xl font-black leading-tight sm:text-4xl">
+              Need blood urgently or want to help run the network?
+            </h2>
+            <p className="mt-4 text-sm leading-7 text-slate-300">
+              Reach out to the RedLove team for support, volunteer coordination, or operational partnership.
+            </p>
+            <Link to="/register" className="mt-7 inline-flex rounded-xl bg-white px-5 py-3 text-sm font-black text-pink-700 transition hover:bg-rose-50">
+              Join the network
+            </Link>
+          </div>
+
+          <div className="grid gap-4 p-5 sm:grid-cols-3 sm:p-7 lg:p-10">
+            {contactMethods.map((item) => (
+              <div key={item.title} className="rounded-2xl border border-rose-100 bg-rose-50/70 p-5">
+                <div className="grid h-11 w-11 place-items-center rounded-xl bg-white text-xl text-pink-700">
+                  {item.icon}
+                </div>
+                <h3 className="mt-4 text-lg font-black text-slate-950">{item.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{item.contact}</p>
+              </div>
+            ))}
+          </div>
         </div>
-    </main>
-    );
+      </div>
+    </section>
+  );
 };
 
 export default ContactUs;

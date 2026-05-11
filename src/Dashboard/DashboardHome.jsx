@@ -24,13 +24,13 @@ const DashboardHome = () => {
     return <Loader/>
   }
   return (
-    <div>
-      <div className="brand-panel my-10 flex min-h-28 items-center justify-center p-6">
+    <div className="page-shell">
+      <div className="brand-section p-6 sm:p-8">
         <WelcomeSection User={User} />
       </div>
       {
         User?.Role === "Donor" && 
-        <div>
+        <div className="mt-8">
         <DonationRequest data={data} viewAll={true} refetch={refetch}/>
       </div>
       }
