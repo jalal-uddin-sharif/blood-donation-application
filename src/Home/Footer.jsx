@@ -9,6 +9,10 @@ const Footer = () => {
     { to: "/blood-donation-request", label: "Requests" },
     { to: "/search-donors", label: "Find Donors" },
     { to: "/blogs", label: "Blogs" },
+    { to: "/about", label: "About" },
+    { to: "/contact", label: "Contact" },
+    { to: "/privacy-policy", label: "Privacy Policy" },
+    { to: "/terms", label: "Terms" },
     { to: "/register", label: "Become a Donor" },
   ];
 
@@ -29,7 +33,7 @@ const Footer = () => {
             </p>
             <div className="mt-5 flex gap-2">
               {[FaFacebookF, FaLinkedinIn, FaGithub].map((Icon, index) => (
-                <a key={index} href="#" className="grid h-10 w-10 place-items-center rounded-xl border border-rose-100 text-pink-700 transition hover:bg-pink-600 hover:text-white" aria-label="Social link">
+                <a key={index} href="https://github.com/" className="grid h-10 w-10 place-items-center rounded-xl border border-rose-100 text-pink-700 transition hover:bg-pink-600 hover:text-white" aria-label="Social link">
                   <Icon />
                 </a>
               ))}

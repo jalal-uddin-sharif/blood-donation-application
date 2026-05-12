@@ -42,12 +42,22 @@ const ViewDetails = () => {
     { icon: <FiCalendar />, label: "Donation Date", value: data?.donationDates },
     { icon: <FiClock />, label: "Donation Time", value: data?.donationTimes },
   ];
+  const gallery = [
+    "https://images.unsplash.com/photo-1615461066841-6116e61058f4?auto=format&fit=crop&w=900&q=80",
+    "https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=900&q=80",
+    "https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&w=900&q=80",
+  ];
 
   return (
     <section className="page-shell min-h">
       <div className="brand-section overflow-hidden">
         <div className="grid lg:grid-cols-[0.85fr_1.15fr]">
           <aside className="bg-slate-950 p-7 text-white sm:p-10">
+            <div className="mb-8 grid grid-cols-3 gap-2">
+              {gallery.map((image, index) => (
+                <img key={image} src={image} alt={`Donation support ${index + 1}`} className={`${index === 0 ? "col-span-3 h-52" : "h-24"} w-full rounded-2xl object-cover`} loading="lazy" />
+              ))}
+            </div>
             <p className="text-sm font-black uppercase text-pink-300">Request details</p>
             <h1 className="mt-3 text-4xl font-black leading-tight">{data?.bloodGroup} blood needed</h1>
             <p className="mt-4 text-sm leading-7 text-slate-300">{data?.message}</p>
@@ -81,7 +91,11 @@ const ViewDetails = () => {
               </div>
             </div>
 
-            <button className="action-button mt-6 gap-2" onClick={() => document.getElementById("donate_modal").showModal()} type="button">
+            <button
+              className="action-button mt-6 gap-2"
+              onClick={() => User ? document.getElementById("donate_modal").showModal() : navigate("/login", { state: `/view-details/${id}` })}
+              type="button"
+            >
               <FiUserCheck />
               Donate
             </button>

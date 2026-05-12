@@ -83,7 +83,6 @@ const myAxios = useAxiosSecure()
       navigate("/login")
 
     } catch (error) {
-      console.error("Registration error:", error.code || error.message);
       Swal.fire({
         icon: "error",
         title: "Registration failed",

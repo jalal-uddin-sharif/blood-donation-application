@@ -1,5 +1,6 @@
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { FiLogOut, FiMenu, FiUser } from "react-icons/fi";
+import { FiLogOut, FiMenu, FiMoon, FiSun, FiUser } from "react-icons/fi";
 import { MdOutlineDashboard } from "react-icons/md";
 import useAuth from "../CustomHooks/useAuth";
 import useDbUser from "../CustomHooks/useDbUser";
@@ -8,14 +9,28 @@ import TextLogo from "../components/TextLogo";
 const Navbar = () => {
   const { logOut } = useAuth();
   const [User] = useDbUser();
+  const [darkMode, setDarkMode] = useState(() => localStorage.getItem("theme") === "dark");
 
-  const links = [
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", darkMode);
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
+
+  const loggedOutLinks = [
     { to: "/", label: "Home" },
     { to: "/blood-donation-request", label: "Requests" },
     { to: "/search-donors", label: "Find Donors" },
+    { to: "/about", label: "About" },
+    { to: "/contact", label: "Contact" },
+  ];
+
+  const loggedInLinks = [
+    ...loggedOutLinks,
     { to: "/blogs", label: "Blogs" },
     { to: "/funding", label: "Funding" },
+    { to: "/dashboard", label: "Dashboard" },
   ];
+  const links = User ? loggedInLinks : loggedOutLinks;
 
   const navList = (
     <>
@@ -67,6 +82,14 @@ const Navbar = () => {
         </nav>
 
         <div className="navbar-end gap-2">
+          <button
+            onClick={() => setDarkMode((value) => !value)}
+            className="btn btn-ghost btn-circle text-pink-700 dark:text-pink-300"
+            type="button"
+            aria-label="Toggle color mode"
+          >
+            {darkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
+          </button>
           {User ? (
             <div className="dropdown dropdown-end">
               <button tabIndex={0} type="button" className="flex items-center gap-2 rounded-2xl border border-rose-100 bg-white px-2 py-1.5 shadow-sm transition hover:border-pink-200">

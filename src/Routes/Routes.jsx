@@ -23,6 +23,10 @@ import Blogs from "../Home/Blogs";
 import BlogDetails from "../Home/BlogDetails";
 import Page404 from "../components/Page404";
 import Funding from "../Home/Funding";
+import About from "../Home/About";
+import Contact from "../Home/Contact";
+import LegalPage from "../Home/LegalPage";
+import DashboardInfoPage from "../Dashboard/Pages/DashboardInfoPage";
 
 export const router = createBrowserRouter([
   {
@@ -44,9 +48,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/view-details/:id",
-        element: <PrivateRoute>
-          <ViewDetails/>
-        </PrivateRoute>,
+        element: <ViewDetails/>,
       },
       {
         path: "/funding",
@@ -57,6 +59,22 @@ export const router = createBrowserRouter([
       {
         path: "/blogs",
         element: <Blogs/>,
+      },
+      {
+        path: "/about",
+        element: <About/>,
+      },
+      {
+        path: "/contact",
+        element: <Contact/>,
+      },
+      {
+        path: "/privacy-policy",
+        element: <LegalPage type="privacy"/>,
+      },
+      {
+        path: "/terms",
+        element: <LegalPage type="terms"/>,
       },
       {
         path: "/blog-details/:id",
@@ -114,6 +132,18 @@ export const router = createBrowserRouter([
       {
         path: "content-management/add-blog",
         element: <CreateBlog/>
+      },
+      {
+        path: "reports",
+        element: <DashboardInfoPage type="reports"/>
+      },
+      {
+        path: "categories",
+        element: <DashboardInfoPage type="categories"/>
+      },
+      {
+        path: "settings",
+        element: <DashboardInfoPage type="settings"/>
       },
     ]
   }

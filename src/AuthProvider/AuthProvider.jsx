@@ -49,7 +49,7 @@ const AuthProvider = ({ children }) => {
             localStorage.setItem("access-token", res.data.token);
           }
         } catch (error) {
-          console.error("Error fetching token:", error);
+          toast.error(error.response?.data?.message || "Could not create secure session");
         }
       } else {
         localStorage.removeItem("access-token");

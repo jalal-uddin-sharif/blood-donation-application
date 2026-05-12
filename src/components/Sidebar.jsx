@@ -30,6 +30,9 @@ const Sidebar = () => {
     { to: "/dashboard/all-blood-donation-request", label: "All requests", icon: <MdOutlineBloodtype size={20} /> },
     { to: "/dashboard/all-users", label: "Users", icon: <FaUsers size={20} /> },
     { to: "/dashboard/content-management", label: "Content", icon: <FiFileText size={20} /> },
+    { to: "/dashboard/reports", label: "Reports", icon: <FiFileText size={20} /> },
+    { to: "/dashboard/categories", label: "Categories", icon: <MdOutlineBloodtype size={20} /> },
+    { to: "/dashboard/settings", label: "Settings", icon: <FiSettings size={20} /> },
   ];
 
   const volunteerItems = [

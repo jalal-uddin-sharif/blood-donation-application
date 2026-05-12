@@ -34,8 +34,12 @@ The Blood Donation Application is a platform designed to facilitate blood donati
 ### Additional Features
 
 - **Search Functionality:** Users can search for donation opportunities based on blood type and location.
+- **Explore Filters:** Public requests support backend-powered search, blood group filtering, location filtering, sorting, and pagination.
 - **Pagination:** Pagination is implemented for displaying large datasets.
 - **JWT Authentication:** JSON Web Tokens (JWT) are used for authentication and protecting private APIs.
+- **Dark Mode:** The frontend supports light and dark color modes with a navbar toggle.
+- **Contact Messages:** Contact form submissions are validated and stored in MongoDB.
+- **Dashboard Analytics:** Admin and volunteer dashboards include dynamic totals and chart-style summaries from backend data.
 
 ## Technologies Used
 
@@ -51,6 +55,32 @@ The Blood Donation Application is a platform designed to facilitate blood donati
 
 - **Admin Email:** admin@redlove.com
 - **Admin Password:** Admin123
+
+## Demo Credentials
+
+### Admin
+
+- **Email:** admin@redlove.com
+- **Password:** Admin123
+
+### User
+
+- Create a donor account from the registration page, or use a seeded donor from your production database.
+
+## Environment Variables
+
+### Client
+
+- `VITE_API_URL`
+- `VITE_IMAGEBB_API_KEY`
+- Firebase configuration values in `src/Authentication/firebase.config.js`
+
+### Server
+
+- `MONGODB_URI` or legacy database username/password variables
+- `DB_NAME`
+- `API_SECRET_KEY`
+- `CLIENT_ORIGINS`
 
 ## Live Site URL
 

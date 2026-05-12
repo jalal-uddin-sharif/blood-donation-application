@@ -13,6 +13,7 @@ const Login = () => {
     register,
     formState: { errors },
     handleSubmit,
+    setValue,
   } = useForm();
   const onSubmit = async (data) => {
     try {
@@ -26,7 +27,6 @@ const Login = () => {
           navigate(location?.state || '/')
     } catch (err) {
       setLoading(false)
-      console.error("Firebase login error:", err.code);
         Swal.fire({
           icon: "error",
           title: "Email or Password invalid",
@@ -67,8 +67,8 @@ const Login = () => {
           <p className="mt-2 text-sm text-slate-500">Enter your account credentials to continue.</p>
         </div>
         <div>
-            <label htmlFor="">Email</label>
-          <input placeholder="Your Email" type="email"
+            <label htmlFor="email">Email</label>
+          <input id="email" placeholder="Your Email" type="email"
             className="brand-input"
             {...register("email", { required: true })}
             aria-invalid={errors.email ? "true" : "false"}
@@ -79,8 +79,8 @@ const Login = () => {
         </div>
 
         <div>
-            <label htmlFor="">Password</label>
-          <input placeholder="Enter Password" type="password"
+            <label htmlFor="password">Password</label>
+          <input id="password" placeholder="Enter Password" type="password"
             className="brand-input"
             {...register("password", {
               required: "Password must be 6 charecter",
@@ -92,6 +92,16 @@ const Login = () => {
         </div>
         <div className="py-4">
         <button className="action-button w-full" type="submit">Login</button>
+        <button
+          onClick={() => {
+            setValue("email", "admin@redlove.com");
+            setValue("password", "Admin123");
+          }}
+          className="soft-button mt-3 w-full"
+          type="button"
+        >
+          Demo admin login
+        </button>
         <p className="mt-4 text-sm text-slate-600">No account yet? <Link className="font-semibold text-pink-600" to={"/register"}>Register</Link></p>
         </div>
       </form>

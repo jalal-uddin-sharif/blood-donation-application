@@ -8,6 +8,10 @@
     scroll-behavior: smooth;
   }
 
+  html.dark {
+    background: #0f172a;
+  }
+
   body {
     min-height: 100vh;
     color: #22111a;
@@ -17,13 +21,20 @@
     font-synthesis: none;
   }
 
+  .dark body {
+    color: #f8fafc;
+    background:
+      linear-gradient(135deg, rgba(228, 0, 124, 0.18) 0%, transparent 28%),
+      linear-gradient(180deg, #0f172a 0%, #111827 48%, #1e1020 100%);
+  }
+
   ::selection {
     background: #e4007c;
     color: #ffffff;
   }
 
   label {
-    @apply mb-1 block text-sm font-semibold text-slate-700;
+    @apply mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200;
   }
 }
 
@@ -37,15 +48,15 @@
   }
 
   .brand-panel {
-    @apply rounded-2xl border border-rose-100 bg-white shadow-sm shadow-rose-100/70;
+    @apply rounded-2xl border border-rose-100 bg-white shadow-sm shadow-rose-100/70 dark:border-slate-700 dark:bg-slate-900 dark:shadow-none;
   }
 
   .brand-input {
-    @apply w-full rounded-xl border border-rose-100 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-pink-500 focus:ring-4 focus:ring-pink-100;
+    @apply w-full rounded-xl border border-rose-100 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-pink-500 focus:ring-4 focus:ring-pink-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:placeholder:text-slate-500 dark:focus:ring-pink-950;
   }
 
   .brand-section {
-    @apply rounded-3xl border border-rose-100 bg-white/95 shadow-sm shadow-rose-100/70;
+    @apply rounded-3xl border border-rose-100 bg-white/95 shadow-sm shadow-rose-100/70 dark:border-slate-700 dark:bg-slate-900/95 dark:shadow-none;
   }
 
   .section-kicker {
@@ -53,19 +64,19 @@
   }
 
   .section-title {
-    @apply text-3xl font-black leading-tight text-slate-950 sm:text-4xl;
+    @apply text-3xl font-black leading-tight text-slate-950 dark:text-white sm:text-4xl;
   }
 
   .section-copy {
-    @apply mt-3 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base;
+    @apply mt-3 max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300 sm:text-base;
   }
 
   .glass-nav {
-    @apply border border-white/70 bg-white/90 shadow-lg shadow-rose-100/70 backdrop-blur-xl;
+    @apply border border-white/70 bg-white/90 shadow-lg shadow-rose-100/70 backdrop-blur-xl dark:border-slate-700 dark:bg-slate-950/90 dark:shadow-none;
   }
 
   .metric-card {
-    @apply rounded-2xl border border-rose-100 bg-white p-5 shadow-sm shadow-rose-100/70 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-rose-100;
+    @apply rounded-2xl border border-rose-100 bg-white p-5 shadow-sm shadow-rose-100/70 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-rose-100 dark:border-slate-700 dark:bg-slate-900 dark:shadow-none dark:hover:shadow-none;
   }
 
   .action-button {
@@ -81,7 +92,7 @@
   }
 
   .data-table thead {
-    @apply border-b border-rose-100 bg-rose-50/80 text-xs uppercase text-slate-600;
+    @apply border-b border-rose-100 bg-rose-50/80 text-xs uppercase text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200;
   }
 
   .data-table th,
@@ -90,7 +101,7 @@
   }
 
   .data-table tbody {
-    @apply divide-y divide-rose-50 text-slate-700;
+    @apply divide-y divide-rose-50 text-slate-700 dark:divide-slate-700 dark:text-slate-200;
   }
 
   .status-pill {
