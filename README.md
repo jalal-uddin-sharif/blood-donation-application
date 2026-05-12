@@ -65,7 +65,8 @@ The Blood Donation Application is a platform designed to facilitate blood donati
 
 ### User
 
-- Create a donor account from the registration page, or use a seeded donor from your production database.
+- **Email:** pex@gmail.com
+- **Password:** 1235800
 
 ## Environment Variables
 
